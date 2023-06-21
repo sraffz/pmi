@@ -15,6 +15,7 @@ use App\Models\KategoriPengguna;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
+use DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -295,9 +296,17 @@ public function profile()
    $profile = Auth::user();
    $senaraiKategoriPengguna = KategoriPengguna::all();
 
+   $skim = DB::table('skim')->get();
+   $jabatan = DB::table('jabatan')->get();
+   $gred_angka = DB::table('gred_angka')->get();
+   $gred_kod = DB::table('gred_kod')->get();
+
     $data = [
         'profile' => $profile,
-        'senaraiKategoriPengguna' => $senaraiKategoriPengguna,
+        'skim' => $skim,
+        'jabatan' => $jabatan,
+        'gred_angka' => $gred_angka,
+        'gred_kod' => $gred_kod,
     ];
 
 

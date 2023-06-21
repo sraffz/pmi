@@ -113,10 +113,10 @@ class User extends Authenticatable implements Auditable
     /**
      * Get the kategori record associated with the user.
      */
-    public function getKategori()
-    {
-        return $this->belongsTo('App\Models\KategoriPengguna','kategori','id_kategori_pengguna');
-    }
+    // public function getKategori()
+    // {
+    //     return $this->belongsTo('App\Models\KategoriPengguna','kategori','id_kategori_pengguna');
+    // }
 
     /**
      * Get the pendaftar record associated with the user.

@@ -61,10 +61,10 @@
                             <a href="{{ url('/katalog') }}">Katalog Kursus</a>
 
                         </li>
-                        <li class="{{$page == 'takwim' ? 'active' : '' }}">
+                        {{-- <li class="{{$page == 'takwim' ? 'active' : '' }}">
                             <a href="{{ url('/takwim') }}">Takwim</a>
 
-                        </li>
+                        </li> --}}
                         {{-- <li>
                             <a href="javascript:;">Features<i class="fa fa-chevron-down"></i></a>
                             <ul class="sub-menu tab-content">

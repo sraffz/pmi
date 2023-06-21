@@ -49,6 +49,7 @@ Route::GET('/halaman-utama', [App\Http\Controllers\HomeController::class, 'index
 Route::GET('/katalog', [App\Http\Controllers\WelcomeController::class, 'katalog'])->name('katalog');
 Route::GET('/takwim', [App\Http\Controllers\WelcomeController::class, 'takwim'])->name('takwim');
 
+Route::POST('/carian-kursus', [App\Http\Controllers\WelcomeController::class, 'carianKursus'])->name('carian.kursus');
 Route::POST('/butiran-kursus', [App\Http\Controllers\WelcomeController::class, 'butiranKursus'])->name('butiran.kursus');
  
 Route::get('/debug-sentry', function () {

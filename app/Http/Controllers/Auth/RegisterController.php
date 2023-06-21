@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use App\Models\KategoriPengguna;
+use DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class RegisterController extends Controller
@@ -53,8 +54,13 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        $senaraiKategoriPengguna = KategoriPengguna::all();
-        return view('auth.register', compact('senaraiKategoriPengguna'));
+        // $senaraiKategoriPengguna = KategoriPengguna::all();
+        $skim = DB::table('skim')->get();
+        $jabatan = DB::table('jabatan')->get();
+        $gred_angka = DB::table('gred_angka')->get();
+        $gred_kod = DB::table('gred_kod')->get();
+
+        return view('auth.register', compact('skim', 'jabatan', 'gred_kod', 'gred_angka'));
     }
 
     /**
@@ -70,11 +76,13 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'nama_penuh' => 'required|string|max:255',
             'nama_singkatan' => 'required|string|max:10',
-            'no_kad_pengenalan' => 'required|string|max:12|unique:pengguna',
+            'no_kad_pengenalan' => 'required|string|max:12|unique:pengguna|digits:12',
             'email' => 'required|string|email|max:255|unique:pengguna',
             'no_telefon' => 'required|string|max:12',
-            'kategori' => 'required',
-            'alamat' => 'required|string|max:255',
+            'skim' => 'required',
+            'jabatan' => 'required',
+            'gred_kod' => 'required',
+            'gred' => 'required',
             'password' => "required|confirmed|regex:$pattern",
             'captcha' => 'required|captcha'
         ],[
@@ -96,8 +104,10 @@ class RegisterController extends Controller
             'no_kad_pengenalan' => $data['no_kad_pengenalan'],
             'email' => $data['email'],
             'no_telefon' => $data['no_telefon'],
-            'alamat' => $data['alamat'],
-            'kategori' => $data['kategori'],
+            'jabatan' => $data['jabatan'],
+            'skim' => $data['skim'],
+            'gred_kod' => $data['gred_kod'],
+            'gred' => $data['gred'],
             'status_perakui_sah' => 1,
             'katalaluan' => bcrypt($data['password']),
         ]);

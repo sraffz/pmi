@@ -289,12 +289,12 @@ return [
             'icon' => 'fas fa-fw fa-lock',
         ],
 
-        [
-            'text' => 'Jejak Audit',
-            'route'=> 'audit.index',
-            'icon' => 'fas fa-fw fa-folder-open',
-            'role' =>['superadmin'],
-        ],
+        // [
+        //     'text' => 'Jejak Audit',
+        //     'route'=> 'audit.index',
+        //     'icon' => 'fas fa-fw fa-folder-open',
+        //     'role' =>['superadmin'],
+        // ],
        
     ],
 

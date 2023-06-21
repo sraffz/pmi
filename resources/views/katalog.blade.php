@@ -35,12 +35,12 @@
                                 @endforeach
                                 </ul>
                             </div>
-                            <div class="widget widget_archive">
+                            {{-- <div class="widget widget_archive">
                                 <h5 class="widget-title style-1">Kategori Kursus</h5>
                                 <ul>
                                     <li><a href="javascript:void(0);">May 2016</a>(1)</li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </aside>
                     </div>
                     <!-- Side bar END -->
@@ -94,7 +94,7 @@
                             @endforelse
 
                             <!-- Pagination start -->
-                            <div class="pagination-bx rounded-sm primary clearfix m-b30 text-center col-md-12">
+                            {{-- <div class="pagination-bx rounded-sm primary clearfix m-b30 text-center col-md-12">
                                 <ul class="pagination">
                                     <li class="previous"><a href="javascript:void(0);"><i class="ti-arrow-left"></i>
                                             Prev</a></li>
@@ -104,7 +104,7 @@
                                     <li class="next"><a href="javascript:void(0);">Next <i class="ti-arrow-right"></i></a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div> --}}
                             <!-- Pagination END -->
                         </div>
                     </div>

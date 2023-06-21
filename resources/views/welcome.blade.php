@@ -8,15 +8,15 @@
             <div class="container">
                 <div class="dlab-bnr-inr-entry text-white">
                     <h1 class="title">Sistem Pembangunan Modal Insan</h1>
-                    <form class="banner-form">
+                    <form class="banner-form"  action="{{ url('/carian-kursus') }}" method="POST">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Carian">
-                                    <div class="input-group-append">
-                                        <button class="site-button btnhover17 btn-block" type="button"><i
-                                                class="fa fa-search"></i> Cari</button>
-                                    </div>
+                                        @csrf
+                                        <input type="text" name="carian" class="form-control" autocomplete="off" placeholder="Carian">
+                                        <div class="input-group-append">
+                                            <button class="site-button btnhover17 btn-block" type="submit"><i class="fa fa-search"></i> Cari</button>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -550,43 +550,48 @@
                 </div>
             </div>
             <div class="section-full bg-gray content-inner">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="sort-title clearfix text-center">
-								<h4>Gambar Program Telah Dianjurkan</h4>
-							</div>
-							<!-- Image Carousel with content -->
-							<div class="section-content box-sort-in m-b30 button-example">
-								<div class="img-carousel-dots-nav owl-btn-3 owl-loaded owl-theme owl-carousel owl-btn-center-lr">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sort-title clearfix text-center">
+                                <h4>Gambar Program Telah Dianjurkan</h4>
+                            </div>
+                            <!-- Image Carousel with content -->
+                            <div class="section-content box-sort-in m-b30 button-example">
+                                <div
+                                    class="img-carousel-dots-nav owl-btn-3 owl-loaded owl-theme owl-carousel owl-btn-center-lr">
 
                                     @forelse ($senaraiGambar as $gambar)
-                                    <div class="item">
-										<div class="ow-carousel-entry">
-											<div class="ow-entry-media dlab-img-effect zoom-slow"> 
-												<a href="javascript:void(0);"><img src="{{ asset('storage/lampiran/'.$gambar->lokasi) }}" alt=""></a> 
-											</div>
-											<div class="ow-entry-content">
-												<div class="ow-entry-title"><a href="javascript:void(0);">{{ $gambar->program->nama_program }}</a></div>
-											</div>
-										</div>
-									</div>
-                                    @empty
-                                    <div class="col-12 col-lg-4 work-box">
-                                        <div class="photobox photobox_type10">
-                                            <div class="photobox__previewbox">
-                                            Tiada Gambar
+                                        <div class="item">
+                                            <div class="ow-carousel-entry">
+                                                <div class="ow-entry-media dlab-img-effect zoom-slow">
+                                                    <a href="javascript:void(0);"><img
+                                                            src="{{ asset('storage/lampiran/' . $gambar->lokasi) }}"
+                                                            alt=""></a>
+                                                </div>
+                                                <div class="ow-entry-content">
+                                                    <div class="ow-entry-title"><a
+                                                            href="javascript:void(0);">{{ $gambar->program->nama_program }}</a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div> 
+                                    @empty
+                                        <div class="col-12 col-lg-4 work-box">
+                                            <div class="photobox photobox_type10">
+                                                <div class="photobox__previewbox">
+                                                    Tiada Gambar
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforelse
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Image Carousel with content END -->
-			</div>
+            </div>
             <!-- Courses End -->
             <!-- Testimonials -->
             {{-- <div class="section-full content-inner bg-gray bg-img-fix">
