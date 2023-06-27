@@ -51,7 +51,7 @@
                           <tr>
                             <td>3</td>
                             <td>Tarikh Tamat</td>
-                            <td>{{$program->tarikh_mula->format('d/m/Y')}}</td>
+                            <td>{{$program->tarikh_akhir->format('d/m/Y')}}</td>
                           </tr>
 
                           <tr>
@@ -68,7 +68,7 @@
 
                           <tr>
                             <td>6</td>
-                            <td>Golongan Sasar</td>
+                            <td>Gred Sasaran</td>
                             <td>{{$program->golongan_sasar}}</td>
                           </tr>
 

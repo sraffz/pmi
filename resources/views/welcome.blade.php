@@ -251,8 +251,6 @@
                                         class="site-button outline outline-2 button-sm btn-tb"><span>{{ $jeniss->jenis_program }}</span></a>
                                 </li>
                             @endforeach
-
-
                         </ul>
                     </div>
                     <div class="clearfix" id="lightgallery">
@@ -264,9 +262,7 @@
                                 <li class="card-container col-lg-3 col-md-6 col-sm-6 {{ $program->jenis_program }}">
                                     <div class="dlab-box courses-bx">
                                         <div class="dlab-media">
-                                            <img src="{{ asset('storage/lampiran/' . $program->poster_program) }}"
-                                                alt="">
-
+                                            <img src="{{ asset('storage/lampiran/' . $program->poster_program) }}" alt="">
                                         </div>
                                         <div class="dlab-info">
                                             <h6 class="dlab-title">
@@ -284,10 +280,8 @@
                                                 Tarikh :
                                                 {{ \Carbon\Carbon::parse($program->tarikh_mula)->format('d/m/Y') }} <br>
                                                 Tempat : {{ $program->tempatProgram->nama_tempat }}
-
                                             </p>
                                             <div class="courses-info">
-
                                                 <a href="{{ route('login') }}"><span class="price">DAFTAR</span></a>
                                             </div>
                                         </div>
@@ -299,14 +293,11 @@
                             @empty
                                 <div class="col-12 col-sm-6 col-lg-4">
                                     <div class="service-box">
-
                                         <!-- Service Title -->
                                         <h3 style="font-size: 1.5rem">Tiada Program Dibuka</h3>
-
                                     </div>
                                 </div>
                             @endforelse
-
                             {{-- <li class="card-container col-lg-3 col-md-6 col-sm-6 photography">
                             <div class="dlab-box courses-bx">
                                 <div class="dlab-media">

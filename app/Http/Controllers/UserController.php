@@ -15,7 +15,9 @@ use App\Models\KategoriPengguna;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
+use PDF;
 use DB;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -141,8 +143,12 @@ public function store(PenggunaRequest $request)
         return view('program.senarai-penyertaan-individu', $data);
     }
 
-    public function daftarPesertaProgram($id)
+    public function daftarPesertaProgram(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'borang' => 'required|file|max:1024|mimes:pdf',
+        ])->validate();
+
         $pengguna = User::find(Auth::user()->id_pengguna);
         $program = Program::find($id);
 
@@ -164,8 +170,10 @@ public function store(PenggunaRequest $request)
                 $status_pengesahan =  0;
             }
 
+
+
             $program->pesertaBatal()->detach($pengguna);
-            $pengguna->senaraiProgramKeseluruhan()->attach($program->id_program, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => $status_pengesahan]);
+            $pengguna->senaraiProgramKeseluruhan()->attach($program->id_program, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => $status_pengesahan, 'borang_pendaftaran' => 'borang']);
             Alert::success('Permohonan diterima.');
         }
         else 
@@ -190,6 +198,12 @@ public function store(PenggunaRequest $request)
         }
         
         return redirect()->back();
+    }
+    
+    public function borangPesertaProgram($id) {
+        $pdf = PDF::loadView('pengguna.borang-permohonan');
+
+	    return $pdf->stream('Borang-permohonan.pdf');
     }
 
     public function createKajiSelidik($idProgram)

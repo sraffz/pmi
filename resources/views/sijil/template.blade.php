@@ -62,8 +62,13 @@
         </span>   
         </strong>
         
+    </p> 
+    <p style="padding-top: 15%; text-align: center">
+        <strong>
+            <span class="nama-penganjur"><i>Sijil ini adalah cetakan komputer dan tidak memerlukan tandatangan.</i></span>
+        </strong>
     </p>
-    <p style="padding-top: 8%;padding-right: 29%; text-align: center">
+    {{-- <p style="padding-top: 8%;padding-right: 29%; text-align: center">
         <strong>
         <span class="nama-penganjur">{{ Config::get('sijil.nama') }}</span> <br>
         <span class="nama-penganjur">{{ Config::get('sijil.darjah') }}</span> <br>
@@ -71,15 +76,12 @@
         <span class="penganjur">{{ Config::get('sijil.jawatan_l2') }}</span> <br>
         <span class="penganjur">{{ Config::get('sijil.jawatan_l3') }}</span>    
         </strong>
-        
-    </p>
+    </p> --}}
     {{-- <p style="padding-top: 1%;text-align: center"> 
         <span class="nama-program">Anjuran</span>  <br>
         <span class="nama-program" style="padding-top: 2%">{{ $program->anjuran }}</span> 
     </p> --}}
 
-
-    
 
 </body>
 </html>

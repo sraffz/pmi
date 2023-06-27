@@ -132,11 +132,8 @@
                         @endif
                 </div>     
                 
-               
-
-                
                 <div  class="form-group has-feedback {{ $errors->has('golongan_sasar') ? 'has-error' : '' }}">
-                        <label for="golongan_sasar">Golongan Sasar</label>
+                        <label for="golongan_sasar">Gred Sasaran</label>
                         <input type="text" name="golongan_sasar" class="form-control" value="{{ old('golongan_sasar') }}">
                         @if ($errors->has('golongan_sasar'))
                                 <span class="help-block">
@@ -144,7 +141,6 @@
                                 </span>
                         @endif
                 </div> 
-
                 
                 <div  class="form-group has-feedback {{ $errors->has('yuran') ? 'has-error' : '' }}">
                         <label for="yuran">Yuran Program (RM)</label> <span>
