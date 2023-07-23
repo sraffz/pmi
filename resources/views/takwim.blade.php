@@ -1,4 +1,4 @@
-@extends('layouts.pmi.apps', ['page' => 'takwim'])
+@extends('layouts.pmi2.apps', ['page' => 'takwim'])
 
 @section('content')
 <div class="page-content bg-gray">

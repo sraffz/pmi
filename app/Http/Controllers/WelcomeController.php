@@ -26,6 +26,23 @@ class WelcomeController extends Controller
 
         return view('welcome', $data);
     }
+    
+    public function index3()
+    {
+        $senaraiProgram = Program::with('tempatProgram')->where('status_aktif', 1)->orderBy('tarikh_mula')->take(5)->get();
+        $senaraiGambar = GambarProgram::with('program')->latest()->take(10)->get()->random(3);
+        $senaraiMakluman = Makluman::latest()->get();
+        $jenis_program = Program::with('tempatProgram')->where('status_aktif', 1)->distinct()->get(['jenis_program']);
+
+        $data = [
+            'senaraiProgram' => $senaraiProgram,
+            'senaraiGambar' => $senaraiGambar,
+            'senaraiMakluman' => $senaraiMakluman,
+            'jenis_program' => $jenis_program
+        ];
+
+        return view('welcome2', $data);
+    }
 
     public function index2()
     {

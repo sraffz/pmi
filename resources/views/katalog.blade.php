@@ -1,10 +1,10 @@
-@extends('layouts.pmi.apps', ['page' => 'Katalog'])
+@extends('layouts.pmi2.apps', ['page' => 'Katalog'])
 
 @section('content')
     <div class="page-content bg-gray">
         <!-- inner page banner -->
         <div class="dlab-bnr-inr overlay-black-middle bg-pt"
-            style="background-image:url({{ asset('templatePMI/images/banner/test.jpg') }});">
+            style="background-image:url({{ asset('templatePMI/images/banner/suk-mbna.jpg') }});">
             <div class="container">
                 <div class="dlab-bnr-inr-entry">
                     <h1 class="text-white">Kursus</h1>
@@ -30,9 +30,9 @@
                                 <h4 class="widget-title">Senarai Program</h4>
                                 <ul>
                                     @foreach ($jenis_program as $jeniss)
-                                    
-                                    <li><a href="javascript:void(0);">{{ $jeniss->jenis_program }}</a> ({{ $jeniss->bilangan }})</li>
-                                @endforeach
+                                        <li><a href="javascript:void(0);">{{ $jeniss->jenis_program }}</a>
+                                            ({{ $jeniss->bilangan }})</li>
+                                    @endforeach
                                 </ul>
                             </div>
                             {{-- <div class="widget widget_archive">
@@ -52,26 +52,33 @@
                             @endphp
                             @forelse ($senaraiProgram as $program)
                                 <div class="col-lg-4">
-                                    <div class="dlab-box courses-bx">
+                                    <div class="dlab-box courses-bx" style="min-height: 650px;">
                                         <div class="dlab-media">
-                                            <img src="{{ asset('storage/lampiran/' . $program->poster_program) }}" alt="">
+                                            <img src="{{ asset('storage/lampiran/' . $program->poster_program) }}"
+                                                alt="">
                                         </div>
                                         <div class="dlab-info">
 
-                                            <h6 class="dlab-title"><a href="{{ route('butiran.kursus') }}" onclick="event.preventDefault(); document.getElementById('butiran-kursus_{{ $i }}').submit();">{{ $program->nama_program }}
+                                            <h6 class="dlab-title"><a href="{{ route('butiran.kursus') }}"
+                                                    onclick="event.preventDefault(); document.getElementById('butiran-kursus_{{ $i }}').submit();">{{ $program->nama_program }}
                                                 </a></h6>
 
-                                            <form id="butiran-kursus_{{ $i }}" action="{{ url('butiran-kursus') }}" method="POST"
-                                                style="display: none;">
+                                            <form id="butiran-kursus_{{ $i }}"
+                                                action="{{ url('butiran-kursus') }}" method="POST" style="display: none;">
                                                 @csrf
                                                 <input type="hidden" id="id_program" name="id_program"
                                                     value="{{ $program->id_program }}">
                                             </form>
-                                            <p>
-                                                Tarikh : {{ \Carbon\Carbon::parse($program->tarikh_mula)->format('d/m/Y') }}
-                                                <br>
-                                                Tempat : {{ $program->tempatProgram->nama_tempat }}
-                                            </p>
+                                            <div class="courses-info">
+                                                <p>
+                                                    <i class="ti-calendar text-success m-r5"></i> <span style="color: black; font-weight: bold">Tarikh </span> <br>
+                                                    {{ \Carbon\Carbon::parse($program->tarikh_mula)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($program->tarikh_akhir)->format('d/m/Y') }}<br>
+                                                   <i class="ti-location-pin text-danger m-r5 mt-2"></i> <span style="color: black;; font-weight: bold">Tempat</span> <br> {{ $program->tempatProgram->nama_tempat }} <br>
+                                                   <br> 
+                                                       <i class="ti-ink-pen text-primary m-r5"></i><span style="color: black;; font-weight: bold"> Anjuran </span> <br> {{ $program->anjuran }}
+                                                </p>
+
+                                            </div>
                                             <div class="courses-info">
                                                 <ul>
                                                     {{-- <li><i class="fa fa-users"></i> 20 Student </li> --}}

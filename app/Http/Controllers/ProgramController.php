@@ -21,6 +21,9 @@ use Ramsey\Uuid\Uuid;
 use RealRashid\SweetAlert\Facades\Alert;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
+use Notification;
+use App\Notifications\EmailPengesahanTerimaPermohonan;
+
 class ProgramController extends Controller
 {
     /**
@@ -308,6 +311,10 @@ class ProgramController extends Controller
     public function pengesahanPermohonanPeserta($idProgram, $idPengguna)
     {
         $program = Program::find($idProgram);
+        $pengguna = User::where('id_pengguna', $idPengguna)->first();
+
+        Notification::send($pengguna, new EmailPengesahanTerimaPermohonan($program));
+        // dd($program);
 
         if ($program->kuota_peserta == $program->jumlah_peserta)
         {
@@ -316,6 +323,9 @@ class ProgramController extends Controller
         }
         $program->senaraiPermohonanPeserta()->updateExistingPivot($idPengguna, ['status_pengesahan' => 1]);
         $program->increment('jumlah_peserta');
+
+        
+        
 
         Alert::success('Permohonan diterima');
 

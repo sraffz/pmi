@@ -1,9 +1,9 @@
-@extends('layouts.pmi.apps', ['page' => 'privasi'])
+@extends('layouts.pmi2.apps', ['page' => 'privasi'])
 
 @section('content')
 <div class="page-content bg-white">
     <!-- inner page banner -->
-    <div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url({{ asset('templatePMI/images/banner/test.jpg') }});" >
+    <div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url({{ asset('templatePMI/images/banner/suk-mbna.jpg') }});" >
         <div class="container">
             <div class="dlab-bnr-inr-entry">
                 <h1 class="text-white">Dasar Keselamatan & Privasi</h1>

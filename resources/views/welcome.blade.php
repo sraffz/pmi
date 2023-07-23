@@ -1,9 +1,9 @@
-@extends('layouts.pmi.apps', ['page' => 'Halaman Utama'])
+@extends('layouts.pmi2.apps', ['page' => 'Halaman Utama'])
 
 @section('content')
     <div class="page-content bg-white">
         <!-- inner page banner -->
-        <div class="dlab-bnr-inr overlay-black-middle bg-pt course-banner"
+        {{-- <div class="dlab-bnr-inr overlay-black-middle bg-pt course-banner"
             style="background-image:url({{ asset('templatePMI/images/banner/test.jpg') }});">
             <div class="container">
                 <div class="dlab-bnr-inr-entry text-white">
@@ -26,52 +26,30 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- inner page banner END -->
-        <!-- contact area -->
-        <div class="content-block">
-            <!-- Content Section -->
-            {{-- <div class="section-full content-inner bg-gray">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 col-sm-12">
-                        <div class="section-head head-langschool m-b20">
-                            <h5 class="text-primary">Start Now!</h5>
-                            <h2 class="title">Learn a New Language!</h2>
-                            <p>There are many variations of passages of Lorem Ipsum typesetting industry has been the industry's standard dummy text ever since the been when an unknown printer.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-sm-12">
+        </div> --}}
+        <div class="banner-langschool">
+            <div class="dlab-bnr-inr banner-content"
+                style="background-image:url({{ asset('templatePMI/images/banner/suk-mbna.jpg') }});">
+                <div class="container">
+                    <div class="dlab-bnr-inr-entry">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="icon-bx-wraper left iconbox-lang">
-                                    <div class="icon-bx-xs bg-primary radius"> <span class="icon-cell">1</span > </div>
-                                    <div class="icon-content">
-                                        <h5 class="dlab-tilte m-b0">An Easy Study Approach</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="icon-bx-wraper left iconbox-lang">
-                                    <div class="icon-bx-xs bg-primary radius"> <span class="icon-cell">2</span > </div>
-                                    <div class="icon-content">
-                                        <h5 class="dlab-tilte m-b0">Free Teaching Materials</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="icon-bx-wraper left iconbox-lang">
-                                    <div class="icon-bx-xs bg-primary radius"> <span class="icon-cell">3</span > </div>
-                                    <div class="icon-content">
-                                        <h5 class="dlab-tilte m-b0">A Free Mobile Application</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="icon-bx-wraper left iconbox-lang">
-                                    <div class="icon-bx-xs bg-primary radius"> <span class="icon-cell">4</span > </div>
-                                    <div class="icon-content">
-                                        <h5 class="dlab-tilte m-b0">An Accredited School</h5>
+                            <div class="col-sm-6 col-2"></div>
+                            <div class="col-sm-6 col-10">
+                                <div class="dlab-bnr-inr-entry text-left">
+                                    <h4 class="text-primary">Sistem</h4>
+                                    <h1>Pembangunan Modal Insan</h1>
+                                    <div class="input-group search-coures">
+                                        <div>
+                                            <select>
+                                                <option>All Category</option>
+                                                <option>Mathematics</option>
+                                                <option>English</option>
+                                                <option>Science</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group-append">
+                                            <button class="site-button btnhover17">Cari</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +57,64 @@
                     </div>
                 </div>
             </div>
-        </div> --}}
+        </div>
+        <!-- inner page banner END -->
+        <!-- contact area -->
+        <div class="content-block">
+            <!-- Content Section -->
+            <div class="section-full content-inner bg-gray">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="section-head head-langschool m-b20">
+                                {{-- <h5 class="text-primary">Start Now!</h5> --}}
+                                <h2 class="title">BPSM</h2>
+                                <p>Bagi mempelbagaikan kaedah penyampaian perkhidmatan kepada pelanggan, BPSM telah
+                                    menyediakan kemudahan di mana penjawat awam Negeri Kelantan boleh memohon kursus secara
+                                    dalam talian.
+                                    Kemudahan ini bukan saja dapat memudahkan proses permohonan kursus tetapi juga telah
+                                    menggalakkan lebih ramai lagi penjawat awam Negeri Kelantan untuk mengikuti kursus.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="icon-bx-wraper left iconbox-lang">
+                                        <div class="icon-bx-xs bg-primary radius"> <span class="icon-cell">1</span> </div>
+                                        <div class="icon-content">
+                                            <h5 class="dlab-tilte m-b0">Mesra Pengguna</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="icon-bx-wraper left iconbox-lang">
+                                        <div class="icon-bx-xs bg-primary radius"> <span class="icon-cell">2</span> </div>
+                                        <div class="icon-content">
+                                            <h5 class="dlab-tilte m-b0">Ketepatan Data</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="icon-bx-wraper left iconbox-lang">
+                                        <div class="icon-bx-xs bg-primary radius"> <span class="icon-cell">3</span> </div>
+                                        <div class="icon-content">
+                                            <h5 class="dlab-tilte m-b0">Kursus Berpusat</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="icon-bx-wraper left iconbox-lang">
+                                        <div class="icon-bx-xs bg-primary radius"> <span class="icon-cell">4</span> </div>
+                                        <div class="icon-content">
+                                            <h5 class="dlab-tilte m-b0">Semak Sejarah Permohonan</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{-- <div class="section-full content-inner bg-gray">
             <div class="container">
                 <div class="row align-items-center">
@@ -233,22 +268,22 @@
         </div> --}}
             <!-- Call To Action End -->
             <!-- Courses -->
-            <div class="section-full content-inner bg-white wow fadeIn" data-wow-duration="2s" data-wow-delay="0.6s">
+            <div class="section-full content-inner bg-dark wow fadeIn" data-wow-duration="2s" data-wow-delay="0.6s">
                 <div class="container">
                     <div class="section-head text-black text-center">
-                        <h2 class="title">Senarai Kursus</h2>
+                        <h2 class="text-primary">Senarai Kursus</h2>
                         {{-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry has been the
                             industry's standard dummy text ever since the been when an unknown printer.</p> --}}
                     </div>
                     <div class="site-filters clearfix center m-b40">
                         <ul class="filters" data-toggle="buttons">
                             <li data-filter="" class="btn active"><input type="radio"><a href="javascript:void(0);"
-                                    class="site-button outline outline-2 button-sm btn-tb"><span>Semua</span></a>
+                                    class="site-button btnhover17 outline outline-2 button-sm"><span>Semua</span></a>
                             </li>
                             @foreach ($jenis_program as $jeniss)
                                 <li data-filter="{{ $jeniss->jenis_program }}" class="btn"><input type="radio">
                                     <a href="javascript:void(0);"
-                                        class="site-button outline outline-2 button-sm btn-tb"><span>{{ $jeniss->jenis_program }}</span></a>
+                                        class="site-button btnhover17 outline outline-2 button-sm"><span>{{ $jeniss->jenis_program }}</span></a>
                                 </li>
                             @endforeach
                         </ul>
@@ -260,14 +295,16 @@
                             @endphp
                             @forelse ($senaraiProgram as $program)
                                 <li class="card-container col-lg-3 col-md-6 col-sm-6 {{ $program->jenis_program }}">
-                                    <div class="dlab-box courses-bx">
+                                    <div class="dlab-box courses-bx" style="min-height: 650px;">
                                         <div class="dlab-media">
-                                            <img src="{{ asset('storage/lampiran/' . $program->poster_program) }}" alt="">
+                                            <img src="{{ asset('storage/lampiran/' . $program->poster_program) }}"
+                                                alt="">
                                         </div>
                                         <div class="dlab-info">
                                             <h6 class="dlab-title">
                                                 <a href="{{ route('butiran.kursus') }}"
-                                                    onclick="event.preventDefault(); document.getElementById('butiran-kursus_{{ $i }}').submit();">{{ $program->nama_program }}</a>
+                                                    onclick="event.preventDefault(); document.getElementById('butiran-kursus_{{ $i }}').submit();"><span
+                                                        style="text-transform: uppercase">{{ $program->nama_program }}</span></a>
                                             </h6>
                                             <form id="butiran-kursus_{{ $i }}"
                                                 action="{{ url('butiran-kursus') }}" method="POST" style="display: none;">
@@ -276,12 +313,26 @@
                                                     value="{{ $program->id_program }}">
                                             </form>
                                             {{-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting.</p> --}}
-                                            <p>
-                                                Tarikh :
-                                                {{ \Carbon\Carbon::parse($program->tarikh_mula)->format('d/m/Y') }} <br>
-                                                Tempat : {{ $program->tempatProgram->nama_tempat }}
-                                            </p>
                                             <div class="courses-info">
+                                                <p>
+                                                    <i class="ti-calendar text-success m-r5"></i> <span
+                                                        style="color: black; font-weight: bold">Tarikh </span> <br>
+                                                    {{ \Carbon\Carbon::parse($program->tarikh_mula)->format('d/m/Y') }} -
+                                                    {{ \Carbon\Carbon::parse($program->tarikh_akhir)->format('d/m/Y') }}<br>
+                                                    <i class="ti-location-pin text-danger m-r5 mt-2"></i> <span
+                                                        style="color: black;; font-weight: bold">Tempat</span> <br>
+                                                    {{ $program->tempatProgram->nama_tempat }} <br>
+                                                    <br>
+                                                    <i class="ti-ink-pen text-primary m-r5"></i><span
+                                                        style="color: black;; font-weight: bold"> Anjuran </span> <br>
+                                                    {{ $program->anjuran }}
+                                                </p>
+
+                                            </div>
+                                            <div class="courses-info">
+                                                <ul>
+                                                    {{-- <li><i class="fa fa-users"></i> 20 Student </li> --}}
+                                                </ul>
                                                 <a href="{{ route('login') }}"><span class="price">DAFTAR</span></a>
                                             </div>
                                         </div>
@@ -554,7 +605,7 @@
 
                                     @forelse ($senaraiGambar as $gambar)
                                         <div class="item">
-                                            <div class="ow-carousel-entry">
+                                            <div class="ow-carousel-entry" style="min-height: 250px">
                                                 <div class="ow-entry-media dlab-img-effect zoom-slow">
                                                     <a href="javascript:void(0);"><img
                                                             src="{{ asset('storage/lampiran/' . $gambar->lokasi) }}"

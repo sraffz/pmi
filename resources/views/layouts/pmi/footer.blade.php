@@ -13,7 +13,8 @@
                 <p class="op7">
                     Bahagian Pengurusan Sumber Manusia (BPSM) <br>
                     Pejabat Setiausaha Kerajaan Negeri Kelantan, <br>
-                     Aras 1, Blok 2, Kompleks Kota Darulnaim, <br>15503 KOTA BHARU, <br>KELANTAN</p>
+                     Aras 1, Blok 2, Kompleks Kota Darulnaim, <br>15503 KOTA BHARU, <br>KELANTAN
+                    </p>
               </div>
             </div>
           </div>

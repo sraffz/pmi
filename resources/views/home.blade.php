@@ -354,8 +354,11 @@
                                                 $i = 0;
                                             @endphp
                                             @if (!checkLepasTarikhProgram($program))
+                                            @php
+                                                $id = Crypt::encryptString($program->id_program);
+                                            @endphp
                                                 <a class="btn btn-danger" target="blank"
-                                                    href="{{ route('borang.peserta.individu', ['id' => $program->id_program]) }}"
+                                                    href="{{ route('borang.peserta.individu', ['id' => $id]) }}"
                                                     role="button">Borang Permohonan</a>
                                                 {{-- <a href="{{ route('mohon.peserta.individu', ['id' => $program->id_program]) }}"
                                                     class="btn btn-primary pengesahan" onclick="return false">Mohon Sertai
@@ -381,7 +384,7 @@
                                                             </div>
                                                             <form
                                                                 action="{{ route('mohon.peserta.individu', ['id' => $program->id_program]) }}"
-                                                                method="POST">
+                                                                method="POST" enctype="multipart/form-data">
                                                                 @csrf
                                                                 <div class="modal-body">
                                                                     <div class="container-fluid">

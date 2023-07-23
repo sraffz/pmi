@@ -53,6 +53,7 @@ Route::post('app/daftar-penyertaan-program', [App\Http\Controllers\Apps\ProgramC
 Route::post('app/batal-penyertaan-program', [App\Http\Controllers\Apps\ProgramController::class, 'batalPenyertaanProgram'])->middleware('auth:api');
 
 Route::GET('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
+Route::GET('/2', [App\Http\Controllers\WelcomeController::class, 'index3'])->name('welcome2');
 Route::GET('/halaman-utama', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::GET('/katalog', [App\Http\Controllers\WelcomeController::class, 'katalog'])->name('katalog');
 Route::GET('/takwim', [App\Http\Controllers\WelcomeController::class, 'takwim'])->name('takwim');
@@ -148,6 +149,7 @@ Route::GET('program/kehadiran-peserta-program', [App\Http\Controllers\ProgramCon
 Route::POST('program/{id}/mohon-peserta-individu', [App\Http\Controllers\UserController::class, 'daftarPesertaProgram'])->name('mohon.peserta.individu');
 Route::GET('program/{id}/batal-peserta-individu', [App\Http\Controllers\UserController::class, 'batalPenyertaanProgram'])->name('batal.peserta.individu');
 Route::GET('program/{id}/borang-peserta-individu', [App\Http\Controllers\UserController::class, 'borangPesertaProgram'])->name('borang.peserta.individu');
+Route::GET('program/{idProgram}/borang-peserta-individu/{idPengguna}', [App\Http\Controllers\UserController::class, 'muatTurunBorangPesertaProgram'])->name('borang.peserta.individu.muatturun');
 Route::GET('program/senarai-permohonan-individu', [App\Http\Controllers\UserController::class, 'senaraiPermohonanProgram'])->name('senarai.permohonan.individu');
 Route::GET('program/senarai-penyertaan-individu', [App\Http\Controllers\UserController::class, 'senaraiPenyertaanProgram'])->name('senarai.penyertaan.individu');
 

@@ -1,9 +1,9 @@
-@extends('layouts.pmi.apps', ['page' => 'Katalog'])
+@extends('layouts.pmi2.apps', ['page' => 'Katalog'])
 
 @section('content')
 <div class="page-content bg-gray">
     <!-- inner page banner -->
-    <div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url({{ asset('templatePMI/images/banner/test.jpg') }});" >
+    <div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url({{ asset('storage/lampiran/' . $program->poster_program) }});" >
         <div class="container">
             <div class="dlab-bnr-inr-entry">
                 <h1 class="text-white">Butiran Program</h1>

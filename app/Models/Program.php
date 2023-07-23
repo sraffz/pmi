@@ -116,47 +116,47 @@ class Program extends Model
 
     public function senaraiPeserta()
     {
-        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->withTimestamps(); 
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->withTimestamps(); 
     }
 
     public function senaraiPesertaHadir()
     {
-        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->wherePivot('status_kehadiran', 1)->withTimestamps(); 
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->wherePivot('status_kehadiran', 1)->withTimestamps(); 
     }
 
     public function senaraiPesertaTidakHadir()
     {
-        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->wherePivot('status_kehadiran', 0)->withTimestamps(); 
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->wherePivot('status_kehadiran', 0)->withTimestamps(); 
     }
 
     public function senaraiPermohonanPeserta()
     {
-        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 0)->withTimestamps(); 
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 0)->withTimestamps(); 
     }
 
     public function senaraiPermohonanPesertaDiterima()
     {
-        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->withTimestamps(); 
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->withTimestamps(); 
     }
 
     public function senaraiPesertaTelahJawabKajiSelidik()
     {
-        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->wherePivot('status_kajiselidik', 1)->withTimestamps(); 
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->wherePivot('status_kajiselidik', 1)->withTimestamps(); 
     }
 
     public function senaraiPesertaBelumJawabKajiSelidik()
     {
-        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->wherePivot('status_kajiselidik', 0)->withTimestamps(); 
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->wherePivot('status_kajiselidik', 0)->withTimestamps(); 
     }
 
     public function senaraiPesertaKeseluruhan()
     {
-        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil')->wherePivot('tarikh_batal', null)->withTimestamps(); 
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->withTimestamps(); 
     }
 
     public function pesertaBatal()
     {
-        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil')->wherePivot('tarikh_batal', '<>', null)->withTimestamps();
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', '<>', null)->withTimestamps();
     }
   
     public function senaraiPenceramah()

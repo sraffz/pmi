@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
 use PDF;
 use DB;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -38,25 +39,24 @@ class UserController extends Controller
         $senaraiPengguna = User::all()->except([1]);
         // dd($senaraiPengguna);
         $data = [
-            'senaraiPengguna' => $senaraiPengguna,];
+            'senaraiPengguna' => $senaraiPengguna,
+        ];
 
-        return view ('pengguna.index',$data);
-
+        return view('pengguna.index', $data);
     }
 
-    
+
 
     public function delete($id)
-        {
-            $pengguna = User::findOrFail($id);
-            $pengguna = $pengguna->delete();
-    
-    
-            return redirect()->route('senarai.pengguna');
-    
-        }
- 
-                    /**
+    {
+        $pengguna = User::findOrFail($id);
+        $pengguna = $pengguna->delete();
+
+
+        return redirect()->route('senarai.pengguna');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -69,14 +69,14 @@ class UserController extends Controller
 
     public function maklumatPengguna($id)
     {
-    
+
         $maklumatPengguna = User::find($id);
-        
+
         $data = [
-            'pengguna' => $maklumatPengguna,];
-    
-        return view ('pengguna.maklumat-pengguna',$data);
-    
+            'pengguna' => $maklumatPengguna,
+        ];
+
+        return view('pengguna.maklumat-pengguna', $data);
     }
 
     public function update(PenggunaRequest $request, $id)
@@ -98,44 +98,44 @@ class UserController extends Controller
         $pengguna = User::find($id);
         $senaraiKategoriPengguna = KategoriPengguna::all();
 
-        $data= [
-            'pengguna'=> $pengguna,
-            'senaraiKategoriPengguna'=> $senaraiKategoriPengguna,
-            
+        $data = [
+            'pengguna' => $pengguna,
+            'senaraiKategoriPengguna' => $senaraiKategoriPengguna,
+
         ];
-        return view('pengguna.edit',$data);
+        return view('pengguna.edit', $data);
     }
 
 
 
-public function store(PenggunaRequest $request)
-{
-    // dd($request->all());
-    $password = bcrypt($request->katalalauan);
-    $pengguna = User::create($request->except(['katalaluan','katalaluan-confirmation','tahap'])+['katalaluan' => $password]);
-    $pengguna->attachRoles($request->tahap);
+    public function store(PenggunaRequest $request)
+    {
+        // dd($request->all());
+        $password = bcrypt($request->katalalauan);
+        $pengguna = User::create($request->except(['katalaluan', 'katalaluan-confirmation', 'tahap']) + ['katalaluan' => $password]);
+        $pengguna->attachRoles($request->tahap);
 
-    Alert::success('Maklumat pengguna berjaya disimpan');
+        Alert::success('Maklumat pengguna berjaya disimpan');
 
-    return redirect()->route('senarai.pengguna');
-}
+        return redirect()->route('senarai.pengguna');
+    }
 
-    
+
     public function senaraiPermohonanProgram()
     {
         $pengguna = User::find(Auth::user()->id_pengguna);
-        
+
         $data = array(
             'senaraiProgram' => $pengguna->senaraiProgramKeseluruhan()->with('tempatProgram')->where('status_aktif', 1)->get(),
         );
 
         return view('program.senarai-permohonan-individu', $data);
     }
-    
+
     public function senaraiPenyertaanProgram()
     {
         $pengguna = User::find(Auth::user()->id_pengguna);
-        
+
         $data = array(
             'senaraiProgram' => $pengguna->senaraiProgramDisertai()->with('tempatProgram')->get(),
         );
@@ -145,9 +145,14 @@ public function store(PenggunaRequest $request)
 
     public function daftarPesertaProgram(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'borang' => 'required|file|max:1024|mimes:pdf',
-        ])->validate();
+        $validate = $request->validate([
+            'borang' => 'required|mimes:pdf|max:1024'
+        ], [
+            'borang.max' => 'Fail yang dimuatnaik tidak melebihi 1MB',
+            'borang.mimes' => 'Fail perlu dimuatnaik dalam format PDF',
+            'borang.required' => 'Borang perlu dimuatnaik',
+        ]);
+         
 
         $pengguna = User::find(Auth::user()->id_pengguna);
         $program = Program::find($id);
@@ -157,31 +162,29 @@ public function store(PenggunaRequest $request)
             return redirect()->back();
         }
 
-        if (!$program->senaraiPermohonanPeserta()->find($pengguna->id_pengguna)) 
-        {
+        if (!$program->senaraiPermohonanPeserta()->find($pengguna->id_pengguna)) {
             $status_pengesahan = (checkTarikhProgram($program)) ? 1 : 0;
-            if(checkTarikhProgram($program))
-            {
+            if (checkTarikhProgram($program)) {
                 $status_pengesahan =  1;
                 $program->increment('jumlah_peserta');
-            }
-            else
-            {
+            } else {
                 $status_pengesahan =  0;
             }
 
+            #Muat naik borang permohonan
+            $folder = str_slug($program->nama_program, '-');
+            $location = $folder.'/borang_permohonan';
+            $borang = Storage::disk('lampiran')->putFile($location, $request->file('borang'));         
 
-
+            
             $program->pesertaBatal()->detach($pengguna);
-            $pengguna->senaraiProgramKeseluruhan()->attach($program->id_program, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => $status_pengesahan, 'borang_pendaftaran' => 'borang']);
+            $pengguna->senaraiProgramKeseluruhan()->attach($program->id_program, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => $status_pengesahan, 'borang_pendaftaran' => $borang]);
             Alert::success('Permohonan diterima.');
-        }
-        else 
-        {
+        } else {
             Alert::error('Permohonan telah dibuat, hanya satu permohonan dibenarkan.');
         }
 
-        
+
         return redirect()->back();
     }
 
@@ -190,21 +193,37 @@ public function store(PenggunaRequest $request)
         $pengguna = User::find(Auth::user()->id_pengguna);
         $program = Program::find($id);
 
-        if ($pengguna->senaraiProgramKeseluruhan()->find($program->id_program)) 
-        {
+        if ($pengguna->senaraiProgramKeseluruhan()->find($program->id_program)) {
             $pengguna->senaraiProgramKeseluruhan()->updateExistingPivot($program->id_program, ['tarikh_batal' => Carbon::now()]);
             $program->decrement('jumlah_peserta');
             Alert::success('Permohonan telah dibatalkan.');
         }
-        
+
         return redirect()->back();
     }
-    
-    public function borangPesertaProgram($id) {
-        $pdf = PDF::loadView('pengguna.borang-permohonan');
 
-	    return $pdf->stream('Borang-permohonan.pdf');
+    public function borangPesertaProgram($id)
+    {
+        $id = Crypt::decryptString($id);
+        
+        $program = Program::where('id_program', $id)->first();
+
+        $data = [
+            'program' => $program,
+        ];
+
+        $pdf = PDF::loadView('pengguna.borang-permohonan', $data);
+
+        return $pdf->stream('Borang-permohonan.pdf');
     }
+
+    public function muatTurunBorangPesertaProgram($idProgram, $idPengguna)
+    {
+        $program = DaftarProgram::where('id_program', $idProgram)->where('id_pengguna', $idPengguna)->first();
+ 
+        $title = 'Borang Permohonan';
+        return response()->download('storage/lampiran/'.$program->borang_pendaftaran, $title.'.pdf', ['title' => 'Borang Permohonan' ], 'inline');
+     }
 
     public function createKajiSelidik($idProgram)
     {
@@ -223,8 +242,7 @@ public function store(PenggunaRequest $request)
         $pengguna = Auth::user();
 
         $kehadiran = DaftarProgram::where('id_program', $idProgram)->where('id_pengguna', $pengguna->id_pengguna)->first()->status_kehadiran;
-        if(!$kehadiran)
-        {
+        if (!$kehadiran) {
             Alert::error('Hanya peserta yang hadir program boleh menjawab soal selidik.');
             return redirect()->back()->withInput();
         }
@@ -246,30 +264,29 @@ public function store(PenggunaRequest $request)
 
             return redirect()->back()->withInput();
         }
-        
-        
-        
+
+
+
 
         $nokadpengenalan = $pengguna->no_kad_pengenalan;
-        
-        $tmp_hari = substr($nokadpengenalan,4,2);
-        $tmp_bulan = substr($nokadpengenalan,2,2);
-        $tmp_tahun = substr($nokadpengenalan,0,2);
-        $tmp_jantina = substr($nokadpengenalan,11,1);
+
+        $tmp_hari = substr($nokadpengenalan, 4, 2);
+        $tmp_bulan = substr($nokadpengenalan, 2, 2);
+        $tmp_tahun = substr($nokadpengenalan, 0, 2);
+        $tmp_jantina = substr($nokadpengenalan, 11, 1);
 
         //UMUR
-        $tmp_tarikh_lahir = $tmp_tahun."-".$tmp_bulan."-".$tmp_hari;
+        $tmp_tarikh_lahir = $tmp_tahun . "-" . $tmp_bulan . "-" . $tmp_hari;
         $umur = date_create($tmp_tarikh_lahir)->diff(date_create('today'))->y;
 
         //JANTINA
-        if($tmp_jantina % 2 == 0) {
+        if ($tmp_jantina % 2 == 0) {
             $jantina = 'Perempuan';
-        }
-        else {
+        } else {
             $jantina = 'Lelaki';
         }
 
-        
+
 
         foreach ($request->idPenceramah as $key => $id) {
             PenilaianPenceramah::create([
@@ -294,122 +311,115 @@ public function store(PenggunaRequest $request)
             'cadangan' => $request->cadangan,
         ]);
 
-        $uuid = Uuid::uuid5('6ba7b811-9dad-11d1-80b4-00c04fd430c8',$program->qrcode_kehadiran.$pengguna->no_kad_pengenalan);
+        $uuid = Uuid::uuid5('6ba7b811-9dad-11d1-80b4-00c04fd430c8', $program->qrcode_kehadiran . $pengguna->no_kad_pengenalan);
         $program->senaraiPeserta()->updateExistingPivot($pengguna->id_pengguna, ['status_kajiselidik' => 1, 'url_sijil' => $uuid]);
 
         Alert::success('Terima Kasih kerana menjawab kaji selidik.');
 
         return redirect()->route('senarai.penyertaan.individu');
-        
     }
 
 
-public function profile()
-{
-
-   $profile = Auth::user();
-   $senaraiKategoriPengguna = KategoriPengguna::all();
-
-   $skim = DB::table('skim')->get();
-   $jabatan = DB::table('jabatan')->get();
-   $gred_angka = DB::table('gred_angka')->get();
-   $gred_kod = DB::table('gred_kod')->get();
-
-    $data = [
-        'profile' => $profile,
-        'skim' => $skim,
-        'jabatan' => $jabatan,
-        'gred_angka' => $gred_angka,
-        'gred_kod' => $gred_kod,
-    ];
-
-
-    return view ('profile.index',$data);
-
-}
-
-
-
-public function editProfile($id)
-{
-    $profile = Auth::user();
-
-
-    $data= [
-        'profile'=> $profile,
-        
-    ];
-    return view ('profile.edit',$data);
-}
-
-
-public function resetPassword()
-{
-
-  $resetKataLaluan = User::find(auth()->user()->id_pengguna);
-  
-    $data = [
-        'resetKataLaluan' => $resetKataLaluan,];
-
-
-    return view ('reset_password.index',$data);
-
-}
-
-
-
-public function updateProfile(Request $request)
-{
-    $pengguna = Auth()->user();
-
-    $validate = Validator::make($request->all(),[
-        'email' => "required|unique:pengguna,email,$pengguna->id_pengguna,id_pengguna",
-    ])->validate();
-
-    $profile = $pengguna->update($request->all());
-            
-    if($profile)
+    public function profile()
     {
-        Alert::success('Berjaya dikemaskini');
-        }
-    else
-    {
-        Alert::error('Tidak Berjaya dikemaskini');
+
+        $profile = Auth::user();
+        $senaraiKategoriPengguna = KategoriPengguna::all();
+
+        $skim = DB::table('skim')->get();
+        $jabatan = DB::table('jabatan')->get();
+        $gred_angka = DB::table('gred_angka')->get();
+        $gred_kod = DB::table('gred_kod')->get();
+
+        $data = [
+            'profile' => $profile,
+            'skim' => $skim,
+            'jabatan' => $jabatan,
+            'gred_angka' => $gred_angka,
+            'gred_kod' => $gred_kod,
+        ];
+
+
+        return view('profile.index', $data);
     }
 
-        return redirect()->back();
-}
 
-public function tukarKatalaluan(Request $request)
-{
-    $pengguna  = Auth::user();
 
-    $hashCurrent = $pengguna->katalaluan;
-
-    if(Hash::check($request->katalaluan_semasa, $hashCurrent))
+    public function editProfile($id)
     {
-        $pattern = '/'.'(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{11,}'.'/';
-        $validator = Validator::make($request->all(),[
-            'katalaluan' => "required|confirmed|regex:$pattern",
-        ],[
-            'katalaluan.regex' => 'Katalaluan mesti mempunyai sekurangnya 12 aksara, 1 nombor, 1 huruf besar dan kecil serta 1 simbol'
+        $profile = Auth::user();
+
+
+        $data = [
+            'profile' => $profile,
+
+        ];
+        return view('profile.edit', $data);
+    }
+
+
+    public function resetPassword()
+    {
+
+        $resetKataLaluan = User::find(auth()->user()->id_pengguna);
+
+        $data = [
+            'resetKataLaluan' => $resetKataLaluan,
+        ];
+
+
+        return view('reset_password.index', $data);
+    }
+
+
+
+    public function updateProfile(Request $request)
+    {
+        $pengguna = Auth()->user();
+
+        $validate = Validator::make($request->all(), [
+            'email' => "required|unique:pengguna,email,$pengguna->id_pengguna,id_pengguna",
         ])->validate();
 
-        Alert::success('Katalaluan Baru Berjaya Disimpan');
+        $profile = $pengguna->update($request->all());
+
+        if ($profile) {
+            Alert::success('Berjaya dikemaskini');
+        } else {
+            Alert::error('Tidak Berjaya dikemaskini');
+        }
 
         return redirect()->back();
     }
-    else
+
+    public function tukarKatalaluan(Request $request)
     {
-        Alert::error('Katalaluan Semasa Salah');
+        $pengguna  = Auth::user();
 
-        return redirect()->back();
+        $hashCurrent = $pengguna->katalaluan;
+        // dd($hashCurrent, $request->katalaluan);
+        if (Hash::check($request->katalaluan_semasa, $hashCurrent)) {
+            $pattern = '/' . '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{11,}' . '/';
+            $validator = Validator::make($request->all(), [
+                'katalaluan' => "required|confirmed|regex:$pattern",
+            ], [
+                'katalaluan.regex' => 'Katalaluan mesti mempunyai sekurangnya 12 aksara, 1 nombor, 1 huruf besar dan kecil serta 1 simbol'
+            ])->validate();
+
+            $profile = $pengguna->update(['katalaluan' => Hash::make($request->katalaluan)]);
+
+            // DB::table('pengguna')->where('id_pengguna', Auth::user()->id)
+            // ->update([
+            //     'katalaluan' => Hash::make($request->katalaluan)
+            // ]);
+
+            Alert::success('Katalaluan Baru Berjaya Disimpan');
+
+            return redirect()->back();
+        } else {
+            Alert::error('Katalaluan Semasa Salah');
+
+            return redirect()->back();
+        }
     }
-    
 }
-
-
-
-
-}
-
