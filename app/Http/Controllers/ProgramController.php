@@ -38,12 +38,12 @@ class ProgramController extends Controller
 
     public function index()
     {
-        $program = Program::with('tempatProgram','urusetia')->latest()->get();
-        
-        
+        $program = Program::with('tempatProgram', 'urusetia')->latest()->get();
+
+
         $data = array(
             'senaraiProgram' => $program,
-            
+
         );
 
         return view('program.index', $data);
@@ -77,18 +77,22 @@ class ProgramController extends Controller
 
     public function store(ProgramRequest $request)
     {
-        $path = ($request->hasFile('poster_program')) ? Storage::disk('lampiran')->putFile('poster_program', $request->file('poster_program')) : '';
-        
+
+        if ($request->hasFile('poster_program')) {
+            $path = Storage::disk('lampiran')->putFile('poster_program', $request->file('poster_program'));
+        } else {
+            $path = '';
+        }
+
         $uuid = Uuid::uuid4();
         $id_pendaftar = Auth::user()->id_pengguna;
 
-        $program = Program::create($request->except('penceramah','poster_program') + ['poster_program' => $path, 'qrcode_kehadiran' => $uuid, 'id_pendaftar' => $id_pendaftar]);
+        $program = Program::create($request->except('penceramah', 'poster_program') + ['poster_program' => $path, 'qrcode_kehadiran' => $uuid, 'id_pendaftar' => $id_pendaftar]);
 
         $program->belanjawan()->create(['id_pentadbir' => Auth::user()->id_pengguna]);
 
         //jika tempat secara maya create maklumat zoom meeting
-        if($request->tempat == 7)
-        {
+        if ($request->tempat == 7) {
             $program->zoom()->create();
         }
 
@@ -122,18 +126,17 @@ class ProgramController extends Controller
         return view('program.edit', $data);
     }
 
-    
+
     public function update(ProgramRequest $request, $id)
     {
         $program = Program::find($id);
 
-        if($request->hasFile('poster_program'))
-        {
+        if ($request->hasFile('poster_program')) {
             $path = Storage::disk('lampiran')->putFile('poster_program', $request->file('poster_program'));
-            $program->update(['poster_program' => $path]);   
+            $program->update(['poster_program' => $path]);
         }
-        
-        $program->update($request->except('penceramah','poster_program'));
+
+        $program->update($request->except('penceramah', 'poster_program'));
 
         $program->senaraiPenceramah()->sync($request->penceramah);
 
@@ -152,9 +155,9 @@ class ProgramController extends Controller
     public function destroy($id)
     {
         $program = Program::withTrashed()->findOrFail($id);
-        
+
         ($program->status_aktif == 0) ? $program->forceDelete() :  Alert::error("Program perlu ditutup sebelum hapus.");
-        
+
 
         return redirect()->back();
     }
@@ -251,7 +254,7 @@ class ProgramController extends Controller
 
         $program = Program::find($id);
         $senaraiPengguna = User::whereRoleIs('individu')->get();
-       
+
         $data = [
             'program' => $program,
             'senaraiPengguna' => $senaraiPengguna,
@@ -264,28 +267,22 @@ class ProgramController extends Controller
     {
         $program = Program::find($id);
 
-        if(!$program->status_aktif)
-        {
+        if (!$program->status_aktif) {
             Alert::error('Program telah ditutup');
             return redirect()->back();
         }
 
         if ($request->senaraiPeserta) {
             foreach ($request->senaraiPeserta as $idPeserta) {
-                if ($program->jumlah_peserta >= $program->kuota_peserta )
-                {
+                if ($program->jumlah_peserta >= $program->kuota_peserta) {
                     Alert::error('Kuota peserta program telah penuh');
                     return redirect()->back();
-                }
-                else if (!$program->senaraiPeserta()->where('pengguna.id_pengguna', $idPeserta)->exists()) 
-                {
+                } else if (!$program->senaraiPeserta()->where('pengguna.id_pengguna', $idPeserta)->exists()) {
                     $program->pesertaBatal()->detach($idPeserta);
                     $program->senaraiPeserta()->attach($idPeserta, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => 1]);
                     $program->increment('jumlah_peserta');
                     Alert::success('Peserta berjaya ditambah');
-                }
-                else if ($program->senaraiPeserta()->where('pengguna.id_pengguna', $idPeserta)->exists())
-                {
+                } else if ($program->senaraiPeserta()->where('pengguna.id_pengguna', $idPeserta)->exists()) {
                     Alert::success('Peserta telah wujud');
                 }
             }
@@ -300,7 +297,7 @@ class ProgramController extends Controller
     {
 
         $program = Program::find($id);
-       
+
         $data = [
             'program' => $program,
         ];
@@ -316,16 +313,15 @@ class ProgramController extends Controller
         Notification::send($pengguna, new EmailPengesahanTerimaPermohonan($program));
         // dd($program);
 
-        if ($program->kuota_peserta == $program->jumlah_peserta)
-        {
+        if ($program->kuota_peserta == $program->jumlah_peserta) {
             Alert::error('Kuota peserta program telah penuh');
             return redirect()->back();
         }
         $program->senaraiPermohonanPeserta()->updateExistingPivot($idPengguna, ['status_pengesahan' => 1]);
         $program->increment('jumlah_peserta');
 
-        
-        
+
+
 
         Alert::success('Permohonan diterima');
 
@@ -336,8 +332,7 @@ class ProgramController extends Controller
     {
         $program = Program::find($id_program);
 
-        if(!$program->status_aktif)
-        {
+        if (!$program->status_aktif) {
             Alert::error('Program telah ditutup');
             return redirect()->back();
         }
@@ -366,15 +361,13 @@ class ProgramController extends Controller
         $validator = Validator::make($request->all(), [
             'slaid' => 'required|file|max:10485760|mimes:pdf',
         ])->validate();
-        
+
         $program = Program::find($id);
 
         $folder = str_slug($program->nama_program, '-');
 
-        if($request->hasFile('slaid'))
-        {
-            if($program->slaid()->exists())
-            {
+        if ($request->hasFile('slaid')) {
+            if ($program->slaid()->exists()) {
                 Storage::disk('lampiran')->delete($program->slaid()->first()->lokasi);
                 $program->slaid()->delete();
             }
@@ -394,8 +387,7 @@ class ProgramController extends Controller
     {
         $program = Program::find($id);
 
-        if($program->slaid()->exists())
-        {
+        if ($program->slaid()->exists()) {
             Storage::disk('lampiran')->delete($program->slaid()->first()->lokasi);
             $program->slaid()->delete();
         }
@@ -419,19 +411,17 @@ class ProgramController extends Controller
 
     public function kemaskiniAturcara($id, Request $request)
     {
-        
+
         $validator = Validator::make($request->all(), [
             'aturcara' => 'required|file|max:10485760|mimes:pdf',
         ])->validate();
-        
+
         $program = Program::find($id);
 
         $folder = str_slug($program->nama_program, '-');
 
-        if($request->hasFile('aturcara'))
-        {
-            if($program->aturcara()->exists())
-            {
+        if ($request->hasFile('aturcara')) {
+            if ($program->aturcara()->exists()) {
                 Storage::disk('lampiran')->delete($program->aturcara()->first()->lokasi);
                 $program->aturcara()->delete();
             }
@@ -451,8 +441,7 @@ class ProgramController extends Controller
     {
         $program = Program::find($id);
 
-        if($program->aturcara()->exists())
-        {
+        if ($program->aturcara()->exists()) {
             Storage::disk('lampiran')->delete($program->aturcara()->first()->lokasi);
             $program->aturcara()->delete();
         }
@@ -510,46 +499,40 @@ class ProgramController extends Controller
         $tarikhKehadiran = Carbon::parse($request->tarikh_kehadiran);
         $period = CarbonPeriod::since($program->tarikh_mula)->days(1)->until($program->tarikh_akhir);
 
-        if(!Auth::user()->hasRole(['urusetia','superadmin']))
-        {
-            if(!$program->status_kehadiran)
-            {
+        if (!Auth::user()->hasRole(['urusetia', 'superadmin'])) {
+            if (!$program->status_kehadiran) {
                 Alert::error('Pendaftaran kehadiran tidak dibuka.');
 
                 return redirect()->back();
-            }    
+            }
         }
-        
+
 
         if ($request->senaraiPeserta) {
             foreach ($request->senaraiPeserta as $idPeserta) {
-                if(!Kehadiran::where('id_program', $program->id_program)->where('id_pengguna', $idPeserta)->where('created_at','LIKE', $tarikhKehadiran->format('Y-m-d').'%')->exists())
-                {
+                if (!Kehadiran::where('id_program', $program->id_program)->where('id_pengguna', $idPeserta)->where('created_at', 'LIKE', $tarikhKehadiran->format('Y-m-d') . '%')->exists()) {
                     $program->senaraiKehadiran()->attach($idPeserta, ['created_at' => $tarikhKehadiran]);
                     Alert::success('Pendaftaran kehadiran diterima.');
                 }
-                
+
                 $kehadiran = collect([]);
                 foreach ($period as $date) {
-                    $flag = Kehadiran::where('id_program', $program->id_program)->where('id_pengguna', $idPeserta)->where('created_at','LIKE', $date->format('Y-m-d').'%')->exists();
+                    $flag = Kehadiran::where('id_program', $program->id_program)->where('id_pengguna', $idPeserta)->where('created_at', 'LIKE', $date->format('Y-m-d') . '%')->exists();
                     $kehadiran->push($flag);
                 }
 
-                if($kehadiran->contains(true) && !$kehadiran->contains(false))
-                {
+                if ($kehadiran->contains(true) && !$kehadiran->contains(false)) {
                     $kehadiranPenuh = 1; //Hadir
                 }
 
-                if($kehadiran->contains(true) && $kehadiran->contains(false))
-                {
+                if ($kehadiran->contains(true) && $kehadiran->contains(false)) {
                     $kehadiranPenuh = 2; // Hadir Sebahagian
                 }
 
                 $program->senaraiPeserta()->updateExistingPivot($idPeserta, ['status_kehadiran' => $kehadiranPenuh]);
-                
             }
         }
-        
+
         return redirect()->back();
     }
 
@@ -559,29 +542,25 @@ class ProgramController extends Controller
         $tarikhBatal = Carbon::parse($tarikh);
         $period = CarbonPeriod::since($program->tarikh_mula)->days(1)->until($program->tarikh_akhir);
 
-        if(!$program->status_aktif)
-        {
+        if (!$program->status_aktif) {
             Alert::error('Program telah ditutup.');
 
             return redirect()->back();
         }
 
-        $tarikhHadir = Kehadiran::where('id_program', $idProgram)->where('id_pengguna', $idPeserta)->where('created_at','LIKE', $tarikhBatal->format('Y-m-d').'%');
-        if($tarikhHadir->delete())
-        {
+        $tarikhHadir = Kehadiran::where('id_program', $idProgram)->where('id_pengguna', $idPeserta)->where('created_at', 'LIKE', $tarikhBatal->format('Y-m-d') . '%');
+        if ($tarikhHadir->delete()) {
             $kehadiran = collect([]);
             foreach ($period as $date) {
-                $flag = Kehadiran::where('id_program', $program->id_program)->where('id_pengguna', $idPeserta)->where('created_at','LIKE', $date->format('Y-m-d').'%')->exists();
+                $flag = Kehadiran::where('id_program', $program->id_program)->where('id_pengguna', $idPeserta)->where('created_at', 'LIKE', $date->format('Y-m-d') . '%')->exists();
                 $kehadiran->push($flag);
             }
 
-            if($kehadiran->contains(false) && !$kehadiran->contains(true))
-            {
+            if ($kehadiran->contains(false) && !$kehadiran->contains(true)) {
                 $kehadiranPenuh = 0; //Tidak Hadir
             }
 
-            if($kehadiran->contains(true) && $kehadiran->contains(false))
-            {
+            if ($kehadiran->contains(true) && $kehadiran->contains(false)) {
                 $kehadiranPenuh = 2; // Hadir Sebahagian
             }
 
@@ -589,9 +568,9 @@ class ProgramController extends Controller
 
             Alert::success('Pendaftaran kehadiran dibatalkan.');
         }
-        
 
-        
+
+
 
         return redirect()->back();
     }
@@ -599,15 +578,13 @@ class ProgramController extends Controller
     public function sijil($url_sijil)
     {
         $ada = DaftarProgram::where('url_sijil', $url_sijil)->get();
-        if($ada->isEmpty())
-        {
+        if ($ada->isEmpty()) {
             Log::warning("Cubaan akses url sijil tanpa sah");
             return abort(404);
         }
 
         $kajiselidik = DaftarProgram::where('url_sijil', $url_sijil)->first()->status_kajiselidik;
-        if(!$kajiselidik)
-        {
+        if (!$kajiselidik) {
             Alert::error('Sila jawab kaji selidik dahulu untuk dapatkan sijil');
 
             return redirect()->back();
@@ -615,23 +592,23 @@ class ProgramController extends Controller
 
         $idProgram = DaftarProgram::where('url_sijil', $url_sijil)->first()->id_program;
         $idPeserta = DaftarProgram::where('url_sijil', $url_sijil)->first()->id_pengguna;
-   
+
         $program = Program::find($idProgram);
         $peserta = User::find($idPeserta);
-      
-        $qrcode = QrCode::size(100)->generate(route('pengesahan.sijil',['url_sijil' => $url_sijil]));
 
-        $qrcode = str_replace('<?xml version="1.0" encoding="UTF-8"?>','',$qrcode);
-        
+        $qrcode = QrCode::size(100)->generate(route('pengesahan.sijil', ['url_sijil' => $url_sijil]));
+
+        $qrcode = str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $qrcode);
+
         $data = [
             'program' => $program,
             'peserta' => $peserta,
             'qrcode' => $qrcode,
         ];
-        
+
         $pdf = PDF::loadView('sijil.template', $data);
 
-	    return $pdf->stream('Sijil.pdf');
+        return $pdf->stream('Sijil.pdf');
         // return view('sijil.template', $data);
     }
 
@@ -639,17 +616,17 @@ class ProgramController extends Controller
     {
         $program = Program::find($id);
 
-        $qrcode = QrCode::size(1000)->generate(route('program.pengesahan-kehadiran',['uuid' => $program->qrcode_kehadiran]));
+        $qrcode = QrCode::size(1000)->generate(route('program.pengesahan-kehadiran', ['uuid' => $program->qrcode_kehadiran]));
 
-        $qrcode = str_replace('<?xml version="1.0" encoding="UTF-8"?>','',$qrcode);
-        
+        $qrcode = str_replace('<?xml version="1.0" encoding="UTF-8"?>', '', $qrcode);
+
         $data = [
             'program' => $program,
             'qrcode' => $qrcode,
         ];
-        
+
         $pdf = PDF::loadView('kehadiran.qrcode', $data);
 
-	    return $pdf->stream('Kod_QR.pdf');
+        return $pdf->stream('Kod_QR.pdf');
     }
 }

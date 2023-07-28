@@ -38,7 +38,7 @@
                                 <div class="dlab-bnr-inr-entry text-left">
                                     <h4 class="text-primary">Sistem</h4>
                                     <h1>Pembangunan Modal Insan</h1>
-                                    <div class="input-group search-coures">
+                                    {{-- <div class="input-group search-coures">
                                         <div>
                                             <select>
                                                 <option>All Category</option>
@@ -50,7 +50,7 @@
                                         <div class="input-group-append">
                                             <button class="site-button btnhover17">Cari</button>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
