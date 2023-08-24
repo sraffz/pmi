@@ -37,7 +37,7 @@
                     <input type="text" class="form-control" value="{{ $profile->no_kad_pengenalan }}"
                         id="no_kad_pengenalan" disabled="disable" />
                 </div>
-                <div class="form-group has-feedback {{ $errors->has('jabatan') ? 'has-error' : '' }}"">
+                <div class="form-group has-feedback {{ $errors->has('jabatan') ? 'has-error' : '' }}">
                     <label>Jabatan</label>
                     <select name="jabatan" id="jabatan" class="form-control select2">
                         <option value="">--Pilih Jabatan--</option>
@@ -52,7 +52,7 @@
                         </span>
                     @endif
                 </div>
-                <div class="form-group has-feedback {{ $errors->has('skim') ? 'has-error' : '' }}"">
+                <div class="form-group has-feedback {{ $errors->has('skim') ? 'has-error' : '' }}">
                     <label>Jawatan</label>
                     <select name="skim" id="skim" class="form-control select2">
                         <option value="">--Pilih Jawatan--</option>

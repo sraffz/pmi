@@ -95,12 +95,21 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $skim = DB::table('skim')->get();
+        $jabatan = DB::table('jabatan')->get();
+        $gred_angka = DB::table('gred_angka')->get();
+        $gred_kod = DB::table('gred_kod')->get();
+        
         $pengguna = User::find($id);
         $senaraiKategoriPengguna = KategoriPengguna::all();
 
         $data = [
+            'skim' => $skim,
+            'jabatan' => $jabatan,
             'pengguna' => $pengguna,
             'senaraiKategoriPengguna' => $senaraiKategoriPengguna,
+            'gred_angka' => $gred_angka,
+            'gred_kod' => $gred_kod,
 
         ];
         return view('pengguna.edit', $data);
@@ -214,7 +223,22 @@ class UserController extends Controller
 
         $pdf = PDF::loadView('pengguna.borang-permohonan', $data);
 
-        return $pdf->stream('Borang-permohonan.pdf');
+        return $pdf->stream('Borang Permohonan Menyertai '.$program->nama_program.'.pdf');
+    }
+
+    public function suratTawaranProgram($id)
+    {
+        $id = Crypt::decryptString($id);
+        
+        $program = Program::where('id_program', $id)->first();
+
+        $data = [
+            'program' => $program,
+        ];
+
+        $pdf = PDF::loadView('pengguna.surat-tawaran', $data);
+
+        return $pdf->stream('Surat Tawaran menyertai '.$program->nama_program.'.pdf');
     }
 
     public function muatTurunBorangPesertaProgram($idProgram, $idPengguna)

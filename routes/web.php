@@ -149,6 +149,7 @@ Route::GET('program/kehadiran-peserta-program', [App\Http\Controllers\ProgramCon
 Route::POST('program/{id}/mohon-peserta-individu', [App\Http\Controllers\UserController::class, 'daftarPesertaProgram'])->name('mohon.peserta.individu');
 Route::GET('program/{id}/batal-peserta-individu', [App\Http\Controllers\UserController::class, 'batalPenyertaanProgram'])->name('batal.peserta.individu');
 Route::GET('program/{id}/borang-peserta-individu', [App\Http\Controllers\UserController::class, 'borangPesertaProgram'])->name('borang.peserta.individu');
+Route::GET('program/{id}/surat-tawaran-individu', [App\Http\Controllers\UserController::class, 'suratTawaranProgram'])->name('surat.tawaran.individu');
 Route::GET('program/{idProgram}/borang-peserta-individu/{idPengguna}', [App\Http\Controllers\UserController::class, 'muatTurunBorangPesertaProgram'])->name('borang.peserta.individu.muatturun');
 Route::GET('program/senarai-permohonan-individu', [App\Http\Controllers\UserController::class, 'senaraiPermohonanProgram'])->name('senarai.permohonan.individu');
 Route::GET('program/senarai-penyertaan-individu', [App\Http\Controllers\UserController::class, 'senaraiPenyertaanProgram'])->name('senarai.penyertaan.individu');
@@ -216,6 +217,14 @@ Route::GET('tempat_program/{id}/edit', [App\Http\Controllers\TempatProgramContro
 Route::POST('tempat_program/store', [App\Http\Controllers\TempatProgramController::class, 'store'])->name('tempat_program.store');
 Route::POST('tempat_program/{id}/update', [App\Http\Controllers\TempatProgramController::class, 'update'])->name('tempat_program.update');
 Route::GET('tempat_program/{id}/hapus', [App\Http\Controllers\TempatProgramController::class, 'delete'])->name('tempat_program.destroy');
+
+#jenis Program
+Route::GET('jenis_program', [App\Http\Controllers\JenisProgramController::class, 'index'])->name('jenis_program.index');
+Route::GET('jenis_program/tambah', [App\Http\Controllers\JenisProgramController::class, 'create'])->name('jenis_program.create');
+Route::GET('jenis_program/{id}/edit', [App\Http\Controllers\JenisProgramController::class, 'edit'])->name('jenis_program.edit');
+Route::POST('jenis_program/store', [App\Http\Controllers\JenisProgramController::class, 'store'])->name('jenis_program.store');
+Route::POST('jenis_program/{id}/update', [App\Http\Controllers\JenisProgramController::class, 'update'])->name('jenis_program.update');
+Route::GET('jenis_program/{id}/hapus', [App\Http\Controllers\JenisProgramController::class, 'delete'])->name('jenis_program.destroy');
 
 //Makluman
 Route::GET('senarai-makluman',  [App\Http\Controllers\MaklumanController::class, 'index'])->name('makluman.index');

@@ -343,6 +343,12 @@
                                                     </tbody>
                                                 </table>
                                             @else
+                                            @php
+                                            $id = Crypt::encryptString($program->id_program);
+                                            @endphp
+                                                {{-- <a class="btn btn-danger" target="blank"
+                                                    href="{{ route('surat.tawaran.individu', ['id' => $id]) }}"
+                                                    role="button">Surat Tawaran Penyertaan</a> --}}
                                                 <a href="" class="btn btn-success" onclick="return false">Permohonan
                                                     Diterima</a>
                                             @endif

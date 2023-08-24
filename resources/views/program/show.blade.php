@@ -107,20 +107,16 @@
                   <a href="{{ route('program.kehadiran', ['id' => $program->id_program]) }}" class="btn btn-warning">Senarai Kehadiran</a>
                   <a href="{{ route('kaji-selidik.graph', ['id' => $program->id_program]) }}" class="btn btn-info">Maklum Balas Program</a>
                 </td>
-                
               </tr>
-              
-              
               <tr>
                 <td>
                     {{-- <a href="../laporanbaru/slip_program.php?programid= " target="_blank"> <button class='btn btn-success'> <i class='fa fa-print' ></i> Cetak </button></a> --}}
                     <a href="{{ route('program.edit', ['id'=> $program->id_program])}}" class="btn btn-primary">Kemaskini</a>
                     <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali </a> 
                 </td>
-                
               </tr>
               @endrole
-
+              
               @role('individu')
               <tr>
                 <td>
@@ -130,16 +126,10 @@
                       @if($program->slaid()->exists()) <a href="{{ asset('storage/lampiran/'.$program->slaid()->first()->lokasi) }}" class="btn bg-maroon" download="Slaid" target="_blank">Slaid</a> @endif
                     @endif    
                   @endif
-                  
                     <a href="{{ url()->previous() }}" class="btn btn-danger">Kembali </a> 
                 </td>
-                
               </tr>
-
               @endrole
-                
-                
-          
           </table>
         </div>
           

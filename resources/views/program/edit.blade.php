@@ -70,13 +70,9 @@
                         <label for="jenis_program'">Jenis Program</label>
                         <select name="jenis_program" class="form-control selectpicker">
                             <option value="">--Pilih Jenis Program--</option>
-                            <option value="Bengkel" @if(old('jenis_program') ?? $program->jenis_program == 'Bengkel') selected @endif>Bengkel</option>
-                            <option value="Ceramah" @if(old('jenis_program') ?? $program->jenis_program == 'Ceramah') selected @endif>Ceramah</option>
-                            <option value="Karnival" @if(old('jenis_program') ?? $program->jenis_program == 'Karnival') selected @endif>Karnival</option>
-                            <option value="Kursus" @if(old('jenis_program') ?? $program->jenis_program == 'Kursus') selected @endif>Kursus</option>
-                            <option value="Mesyuarat" @if(old('jenis_program') ?? $program->jenis_program == 'Mesyuarat') selected @endif>Mesyuarat</option>
-                            <option value="Pertandingan" @if(old('jenis_program') ?? $program->jenis_program == 'Pertandingan') selected @endif>Pertandingan</option>
-                            <option value="Seminar" @if(old('jenis_program') ?? $program->jenis_program == 'Seminar') selected @endif>Seminar</option>
+                                @foreach ($senaraiJenis as $jenis)
+                                <option value="{{ $jenis->nama_jenis }}" @if(old('jenis_program') ?? $program->jenis_program == $jenis->nama_jenis) selected @endif>{{ $jenis->nama_jenis }}</option>
+                                @endforeach
                         </select>
                         @if ($errors->has('jenis_program'))
                             <span class="help-block">

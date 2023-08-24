@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Models\DaftarProgram;
+use App\Models\JenisProgram;
 use App\Models\Kehadiran;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Log;
@@ -51,11 +52,13 @@ class ProgramController extends Controller
 
     public function create()
     {
+        $senaraiJenis = JenisProgram::all();
         $senaraiTempat = TempatProgram::all();
         $senaraiPenceramah = Penceramah::all();
         $senaraiUrusetia = User::whereRoleIs('urusetia')->get();
         // dd($senaraiTempat);
         $data = [
+            'senaraiJenis' => $senaraiJenis,
             'senaraiTempat' => $senaraiTempat,
             'senaraiPenceramah' => $senaraiPenceramah,
             'senaraiUrusetia' => $senaraiUrusetia,
@@ -112,12 +115,14 @@ class ProgramController extends Controller
     public function edit($id)
     {
         $program = Program::find($id);
+        $senaraiJenis = JenisProgram::all();
         $senaraiTempat = TempatProgram::all();
         $senaraiPenceramah = Penceramah::all();
         $senaraiUrusetia = User::whereRoleIs('urusetia')->get();
 
         $data = [
             'program' => $program,
+            'senaraiJenis' => $senaraiJenis,
             'senaraiTempat' => $senaraiTempat,
             'senaraiPenceramah' => $senaraiPenceramah,
             'senaraiUrusetia' => $senaraiUrusetia,
@@ -309,18 +314,19 @@ class ProgramController extends Controller
     {
         $program = Program::find($idProgram);
         $pengguna = User::where('id_pengguna', $idPengguna)->first();
-
         Notification::send($pengguna, new EmailPengesahanTerimaPermohonan($program));
+        // dd($pengguna->email);
         // dd($program);
 
         if ($program->kuota_peserta == $program->jumlah_peserta) {
             Alert::error('Kuota peserta program telah penuh');
             return redirect()->back();
         }
+
         $program->senaraiPermohonanPeserta()->updateExistingPivot($idPengguna, ['status_pengesahan' => 1]);
         $program->increment('jumlah_peserta');
 
-
+        #generate surat tawaran
 
 
         Alert::success('Permohonan diterima');

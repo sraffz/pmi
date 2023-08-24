@@ -247,6 +247,13 @@ return [
             'role' => ['superadmin','urusetia','pengurusan'],
             'icon' => 'fas fa-fw fa-edit',
         ],
+       
+        [
+            'text' => 'Rekod jenis Program',
+            'route'=> 'jenis_program.index',
+            'role' => ['superadmin','urusetia','pengurusan'],
+            'icon' => 'fas fa-fw fa-edit',
+        ],
         
         [
             'text' => 'Rekod Penceramah',
