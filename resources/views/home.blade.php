@@ -16,7 +16,7 @@
             <h3 class="widget-user-username" align="center">
                 @php
                     use Jenssegers\Agent\Agent;
-                    
+
                     $agent = new Agent();
                 @endphp
                 @if ($agent->isDesktop())
@@ -42,7 +42,9 @@
             </div>
         </div>
     </div>
-
+    @php
+        $i = 0;
+    @endphp
 
     @role(['superadmin', 'urusetia', 'pengurusan'])
         <div class="box box-primary">
@@ -343,9 +345,9 @@
                                                     </tbody>
                                                 </table>
                                             @else
-                                            @php
-                                            $id = Crypt::encryptString($program->id_program);
-                                            @endphp
+                                                @php
+                                                    $id = Crypt::encryptString($program->id_program);
+                                                @endphp
                                                 {{-- <a class="btn btn-danger" target="blank"
                                                     href="{{ route('surat.tawaran.individu', ['id' => $id]) }}"
                                                     role="button">Surat Tawaran Penyertaan</a> --}}
@@ -356,13 +358,10 @@
                                             <a href="" class="btn btn-warning" onclick="return false">Permohonan Dalam
                                                 Proses</a>
                                         @else
-                                            @php
-                                                $i = 0;
-                                            @endphp
                                             @if (!checkLepasTarikhProgram($program))
-                                            @php
-                                                $id = Crypt::encryptString($program->id_program);
-                                            @endphp
+                                                @php
+                                                    $id = Crypt::encryptString($program->id_program);
+                                                @endphp
                                                 <a class="btn btn-danger" target="blank"
                                                     href="{{ route('borang.peserta.individu', ['id' => $id]) }}"
                                                     role="button">Borang Permohonan</a>
@@ -467,10 +466,10 @@
 
             var add = {{ $i }};
             if (add == 1) {
-            $(document).ready(function() {
-                $("#sertaiKursus").modal('show');
-            });
-        }
+                $(document).ready(function() {
+                    $("#sertaiKursus").modal('show');
+                });
+            }
 
             $('#sertaiKursus').on('show.bs.modal', event => {
                 var button = $(event.relatedTarget);

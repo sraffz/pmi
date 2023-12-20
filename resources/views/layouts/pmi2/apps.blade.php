@@ -7,9 +7,9 @@
     <meta name="keywords" content="" />
     <meta name="author" content="" />
     <meta name="robots" content="" />
-    <meta name="description" content="EduZone - Education Collage & School HTML5 Template" />
-    <meta property="og:title" content="EduZone - Education Collage & School HTML5 Template" />
-    <meta property="og:description" content="EduZone - Education Collage & School HTML5 Template" />
+    <meta name="description" content="E-PMI - Sistem Pembangunan Modal Insan SUK Kelantan" />
+    <meta property="og:title" content="E-PMI - Sistem Pembangunan Modal Insan SUK Kelantan" />
+    <meta property="og:description" content="E-PMI - Sistem Pembangunan Modal Insan SUK Kelantan" />
     <meta property="og:image" content="" />
     <meta name="format-detection" content="telephone=no">
 

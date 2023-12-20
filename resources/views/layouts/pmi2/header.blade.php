@@ -5,12 +5,12 @@
             <div class="container-fluid clearfix">
                 <!-- website logo -->
                 <div class="logo-header mostion logo-white">
-                    <a href="{{ url('/') }}"><img src="{{ asset('templatePMI/images/logo-white.png') }}" alt=""></a>
+                    <a href="{{ url('/') }}"><img src="{{ asset('templatePMI/images/logo-white.png') }}" alt="logo-epmi"></a>
                 </div>
                 <!-- nav toggle button -->
-                <button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-toggle="collapse"
-                    data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <button class="navbar-toggler collapsed navicon justify-content-end" type="button"
+                    data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                    aria-expanded="false" aria-label="Toggle navigation">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -262,8 +262,11 @@
                     </ul>
                     <div class="dlab-social-icon">
                         <ul>
-                            <li><a class="site-button sharp-sm fa fa-facebook" href="https://www.facebook.com/BPSMKelantan/" target="blank"></a></li>
-                            <li><a class="site-button sharp-sm fa fa-youtube" href="https://www.youtube.com/@bahagianpengurusansumberma5455"  target="blank"></a></li>
+                            <li><a class="site-button sharp-sm fa fa-facebook"
+                                    href="https://www.facebook.com/BPSMKelantan/" target="blank"></a></li>
+                            <li><a class="site-button sharp-sm fa fa-youtube"
+                                    href="https://www.youtube.com/@bahagianpengurusansumberma5455" target="blank"></a>
+                            </li>
 
                         </ul>
                     </div>

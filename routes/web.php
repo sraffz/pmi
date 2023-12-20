@@ -56,6 +56,7 @@ Route::GET('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name(
 Route::GET('/2', [App\Http\Controllers\WelcomeController::class, 'index3'])->name('welcome2');
 Route::GET('/halaman-utama', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::GET('/katalog', [App\Http\Controllers\WelcomeController::class, 'katalog'])->name('katalog');
+Route::GET('/katalog/{jenis_program}', [App\Http\Controllers\WelcomeController::class, 'katalogJenis'])->name('katalog.jenis');
 Route::GET('/takwim', [App\Http\Controllers\WelcomeController::class, 'takwim'])->name('takwim');
 
 Route::POST('/carian-kursus', [App\Http\Controllers\WelcomeController::class, 'carianKursus'])->name('carian.kursus');

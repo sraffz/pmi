@@ -11,6 +11,7 @@
                                 Alamat
                             </h5>
                             <p class="op7">
+                                Seksyen Pembangunan Modal Insan <br>
                                 Bahagian Pengurusan Sumber Manusia (BPSM) <br>
                                 Pejabat Setiausaha Kerajaan Negeri Kelantan, <br>
                                 Aras 1, Blok 2, Kompleks Kota Darulnaim, <br>15503 KOTA BHARU, <br>KELANTAN

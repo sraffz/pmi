@@ -13,7 +13,14 @@ class WelcomeController extends Controller
     public function index()
     {
         $senaraiProgram = Program::with('tempatProgram')->where('status_aktif', 1)->orderBy('tarikh_mula')->take(5)->get();
-        $senaraiGambar = GambarProgram::with('program')->latest()->take(10)->get()->random(3);
+        $senaraiGambar = GambarProgram::with('program')->latest()->take(10)->get();
+        if (count($senaraiGambar)>2) {
+            $senaraiGambar = $senaraiGambar->random(3);
+        } else {
+            $bil =  GambarProgram::with('program')->latest()->take(10)->count();
+            $senaraiGambar = $senaraiGambar->random($bil);
+        }
+        
         $senaraiMakluman = Makluman::latest()->get();
         $jenis_program = Program::with('tempatProgram')->where('status_aktif', 1)->distinct()->get(['jenis_program']);
 
@@ -30,7 +37,13 @@ class WelcomeController extends Controller
     public function index3()
     {
         $senaraiProgram = Program::with('tempatProgram')->where('status_aktif', 1)->orderBy('tarikh_mula')->take(5)->get();
-        $senaraiGambar = GambarProgram::with('program')->latest()->take(10)->get()->random(3);
+        $senaraiGambar = GambarProgram::with('program')->latest()->take(10)->get();
+        if (count($senaraiGambar)>2) {
+            $senaraiGambar = $senaraiGambar->random(3);
+        } else {
+            $bil =  GambarProgram::with('program')->latest()->take(10)->count();
+            $senaraiGambar = $senaraiGambar->random($bil);
+        }
         $senaraiMakluman = Makluman::latest()->get();
         $jenis_program = Program::with('tempatProgram')->where('status_aktif', 1)->distinct()->get(['jenis_program']);
 
@@ -58,6 +71,19 @@ class WelcomeController extends Controller
     public function katalog()
     {
         $senaraiProgram = Program::with('tempatProgram')->where('status_aktif', 1)->orderBy('tarikh_mula')->get();
+        $jenis_program = Program::with('tempatProgram')->select('jenis_program', DB::raw('count(*) as bilangan'))->where('status_aktif', 1)->groupBy('jenis_program')->get();
+
+        $data = [
+            'senaraiProgram' => $senaraiProgram,
+            'jenis_program' => $jenis_program
+        ];
+
+        return view('katalog', $data);
+    }
+
+    public function katalogJenis($jenis_program)
+    {
+        $senaraiProgram = Program::with('tempatProgram')->where('jenis_program', $jenis_program)->where('status_aktif', 1)->orderBy('tarikh_mula')->get();
         $jenis_program = Program::with('tempatProgram')->select('jenis_program', DB::raw('count(*) as bilangan'))->where('status_aktif', 1)->groupBy('jenis_program')->get();
 
         $data = [

@@ -3,61 +3,41 @@
 @section('content')
     <div class="page-content bg-white">
         <!-- inner page banner -->
-        {{-- <div class="dlab-bnr-inr overlay-black-middle bg-pt course-banner"
-            style="background-image:url({{ asset('templatePMI/images/banner/test.jpg') }});">
+        <div class="dlab-bnr-inr bg-pt course-banner"
+            style="background-image: url({{ asset('templatePMI/images/banner/suk-pmi-1.png') }});">
             <div class="container">
                 <div class="dlab-bnr-inr-entry text-white">
-                    <h1 class="title">Sistem Pembangunan Modal Insan</h1>
-                    <form class="banner-form"  action="{{ url('/carian-kursus') }}" method="POST">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="input-group">
-                                        @csrf
-                                        <input type="text" name="carian" class="form-control" autocomplete="off" placeholder="Carian">
-                                        <div class="input-group-append">
-                                            <button class="site-button btnhover17 btn-block" type="submit"><i class="fa fa-search"></i> Cari</button>
+                    <div class="row">
+                        <div class="col-sm-6 col-8">
+                            <img src="{{ asset('images/suk.png') }}" class="img-fluid" height="50px" width="150px" alt="jata-suk">
+                            <h1 class="title" style="color: white; text-shadow: 4px 4px #1c1c1c;">Sistem Pembangunan Modal Insan</h1>
+                            <form class="banner-form" action="{{ url('/carian-kursus') }}" method="POST">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            @csrf
+                                            <input type="text" name="carian" class="form-control" autocomplete="off"
+                                                placeholder="Carian">
+                                            <div class="input-group-append">
+                                                <button class="site-button btnhover17 btn-block" type="submit"><i
+                                                        class="fa fa-search"></i> Cari</button>
+                                            </div>
                                         </div>
+                                    </div>
                                 </div>
+                            </form>
+                            <div class="m-t20">
+                                <h4 style="color: yellow  ;text-shadow: 3px 3px #141414;">BAHAGIAN PENGURUSAN SUMBER MANUSIA <br>
+                                    PEJABAT SETIAUSAHA KERAJAAN NEGERI KELANTAN
+                                </h4>
                             </div>
                         </div>
-                    </form>
-                    <div class="m-t20">
-                        <h5>Terus menuntut ilmu baharu untuk perkembangan ideas dan perspektif yang baharu</h5>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        <div class="banner-langschool">
-            <div class="dlab-bnr-inr banner-content"
-                style="background-image:url({{ asset('templatePMI/images/banner/suk-mbna.jpg') }});">
-                <div class="container">
-                    <div class="dlab-bnr-inr-entry">
-                        <div class="row">
-                            <div class="col-sm-6 col-2"></div>
-                            <div class="col-sm-6 col-10">
-                                <div class="dlab-bnr-inr-entry text-left">
-                                    <h4 class="text-primary">Sistem</h4>
-                                    <h1>Pembangunan Modal Insan</h1>
-                                    {{-- <div class="input-group search-coures">
-                                        <div>
-                                            <select>
-                                                <option>All Category</option>
-                                                <option>Mathematics</option>
-                                                <option>English</option>
-                                                <option>Science</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group-append">
-                                            <button class="site-button btnhover17">Cari</button>
-                                        </div>
-                                    </div> --}}
-                                </div>
-                            </div>
-                        </div>
+                        <div class="col-sm-6 col-4"></div>
                     </div>
                 </div>
             </div>
         </div>
+      
         <!-- inner page banner END -->
         <!-- contact area -->
         <div class="content-block">
@@ -307,7 +287,8 @@
                                                         style="text-transform: uppercase">{{ $program->nama_program }}</span></a>
                                             </h6>
                                             <form id="butiran-kursus_{{ $i }}"
-                                                action="{{ url('butiran-kursus') }}" method="POST" style="display: none;">
+                                                action="{{ url('butiran-kursus') }}" method="POST"
+                                                style="display: none;">
                                                 @csrf
                                                 <input type="hidden" id="id_program" name="id_program"
                                                     value="{{ $program->id_program }}">
@@ -329,11 +310,12 @@
                                                 </p>
 
                                             </div>
-                                            <div class="courses-info">
+                                            <div class="courses-info mt-auto">
                                                 <ul>
                                                     {{-- <li><i class="fa fa-users"></i> 20 Student </li> --}}
                                                 </ul>
-                                                <a href="{{ route('login') }}"><span class="price">DAFTAR</span></a>
+                                                <a href="{{ route('login') }}"><span
+                                                        class=" mt-auto price">DAFTAR</span></a>
                                             </div>
                                         </div>
                                     </div>
@@ -342,10 +324,10 @@
                                     $i++;
                                 @endphp
                             @empty
-                                <div class="col-12 col-sm-6 col-lg-4">
-                                    <div class="service-box">
+                                <div class="col-12 col-sm-12">
+                                    <div class="service-box text-center">
                                         <!-- Service Title -->
-                                        <h3 style="font-size: 1.5rem">Tiada Program Dibuka</h3>
+                                        <h3 style="font-size: 1.5rem; color:white">Tiada Program Dibuka</h3>
                                     </div>
                                 </div>
                             @endforelse
@@ -596,7 +578,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="sort-title clearfix text-center">
-                                <h4>Gambar Program Telah Dianjurkan</h4>
+                                <h4>Galeri Program Telah Dianjurkan</h4>
                             </div>
                             <!-- Image Carousel with content -->
                             <div class="section-content box-sort-in m-b30 button-example">

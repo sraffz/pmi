@@ -27,10 +27,10 @@
                     <div class="col-lg-3 col-md-5">
                         <aside class="side-bar sticky-top">
                             <div class="widget  widget_categories">
-                                <h4 class="widget-title">Senarai Program</h4>
+                                <h4 class="widget-title">Senarai Kursus</h4>
                                 <ul>
                                     @foreach ($jenis_program as $jeniss)
-                                        <li><a href="javascript:void(0);">{{ $jeniss->jenis_program }}</a>
+                                        <li><a href="{{ route('katalog.jenis', [$jeniss->jenis_program]) }}">{{ $jeniss->jenis_program }}</a>
                                             ({{ $jeniss->bilangan }})</li>
                                     @endforeach
                                 </ul>
