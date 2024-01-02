@@ -147,7 +147,8 @@ Route::GET('program/permohonan-peserta-program', [App\Http\Controllers\ProgramCo
 Route::GET('program/kehadiran-peserta-program', [App\Http\Controllers\ProgramController::class, 'pesertaProgram'])->name('program.kehadiran-peserta');
 
 //Permohonan Peserta Program
-Route::POST('program/{id}/mohon-peserta-individu', [App\Http\Controllers\UserController::class, 'daftarPesertaProgram'])->name('mohon.peserta.individu');
+Route::GET('program/{id}/mohon-peserta-individu', [App\Http\Controllers\UserController::class, 'daftarPesertaProgram'])->name('mohon.peserta.individu');
+// Route::POST('program/{id}/mohon-peserta-individu', [App\Http\Controllers\UserController::class, 'daftarPesertaProgram'])->name('mohon.peserta.individu');
 Route::GET('program/{id}/batal-peserta-individu', [App\Http\Controllers\UserController::class, 'batalPenyertaanProgram'])->name('batal.peserta.individu');
 Route::GET('program/{id}/borang-peserta-individu', [App\Http\Controllers\UserController::class, 'borangPesertaProgram'])->name('borang.peserta.individu');
 Route::GET('program/{id}/surat-tawaran-individu', [App\Http\Controllers\UserController::class, 'suratTawaranProgram'])->name('surat.tawaran.individu');

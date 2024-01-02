@@ -98,7 +98,6 @@ class ResetPasswordController extends Controller
     protected function sendResetResponse($response)
     {
         Alert::success('','Katalaluan berjaya ditukar, sila log masuk menggunakan katalaluan baru.');
-        return redirect($this->redirectPath())
-                            ->with('status', trans($response));
+        return redirect($this->redirectPath());
     }
 }

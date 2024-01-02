@@ -314,8 +314,8 @@ class ProgramController extends Controller
     {
         $program = Program::find($idProgram);
         $pengguna = User::where('id_pengguna', $idPengguna)->first();
-        Notification::send($pengguna, new EmailPengesahanTerimaPermohonan($program));
         // dd($pengguna->email);
+        Notification::send($pengguna, new EmailPengesahanTerimaPermohonan($program));
         // dd($program);
 
         if ($program->kuota_peserta == $program->jumlah_peserta) {

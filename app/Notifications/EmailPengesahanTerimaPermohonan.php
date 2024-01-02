@@ -37,7 +37,7 @@ class EmailPengesahanTerimaPermohonan extends Notification
         return (new MailMessage)
                     ->subject('E-PMI : PENGESAHAN PENYERTAAN PROGRAM')
                     ->greeting('Assalamualaikum / Selamat Sejahtera')
-                    ->line('Adalah dimaklumakan bahawa permohonan penyertaan program anda telah diterima.')
+                    ->line('Adalah dimaklumkan bahawa permohonan penyertaan program anda telah diterima.')
                     ->action('Lihat Permohonan', url('/program/senarai-permohonan-individu'));
     }
 

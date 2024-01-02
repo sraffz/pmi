@@ -362,18 +362,21 @@
                                                 @php
                                                     $id = Crypt::encryptString($program->id_program);
                                                 @endphp
-                                                <a class="btn btn-danger" target="blank"
+                                                {{-- <a class="btn btn-danger" target="blank"
                                                     href="{{ route('borang.peserta.individu', ['id' => $id]) }}"
-                                                    role="button">Borang Permohonan</a>
-                                                {{-- <a href="{{ route('mohon.peserta.individu', ['id' => $program->id_program]) }}"
-                                                    class="btn btn-primary pengesahan" onclick="return false">Mohon Sertai
-                                                    Program</a> --}}
+                                                    role="button">Borang Permohonan</a> --}}
+                                                    @if ($program->status_penyertaan == 1)
+                                                    <a href="{{ route('mohon.peserta.individu', ['id' => $program->id_program]) }}"
+                                                        class="btn btn-primary pengesahan" onclick="return false">Mohon Sertai
+                                                        Program</a>
+                                                        
+                                                    @endif
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-primary " data-toggle="modal"
+                                                {{-- <button type="button" class="btn btn-primary " data-toggle="modal"
                                                     data-target="#sertaiKursus">
                                                     Mohon Sertai
                                                     Program
-                                                </button>
+                                                </button> --}}
 
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="sertaiKursus" tabindex="-1" role="dialog"

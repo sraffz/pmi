@@ -32,8 +32,8 @@
                             <td>{{ $peserta->nama_penuh }}</td>
                             <td>{{ $peserta->no_kad_pengenalan }}</td>
                             <td width="15%">
-                                <a class='btn btn-info' target="blank"
-                                    href='{{ route('borang.peserta.individu.muatturun', ['idProgram' => $program->id_program, 'idPengguna' => $peserta->id_pengguna]) }}'>Borang</a>
+                                {{-- <a class='btn btn-info' target="blank"
+                                    href='{{ route('borang.peserta.individu.muatturun', ['idProgram' => $program->id_program, 'idPengguna' => $peserta->id_pengguna]) }}'>Borang</a> --}}
                                 <a class='btn btn-success'
                                     href='{{ route('pengesahan.permohonan.peserta', ['idProgram' => $program->id_program, 'idPengguna' => $peserta->id_pengguna]) }}'>Terima
                                     Permohonan</a>

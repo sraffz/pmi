@@ -154,13 +154,13 @@ class UserController extends Controller
 
     public function daftarPesertaProgram(Request $request, $id)
     {
-        $validate = $request->validate([
-            'borang' => 'required|mimes:pdf|max:1024'
-        ], [
-            'borang.max' => 'Fail yang dimuatnaik tidak melebihi 1MB',
-            'borang.mimes' => 'Fail perlu dimuatnaik dalam format PDF',
-            'borang.required' => 'Borang perlu dimuatnaik',
-        ]);
+        // $validate = $request->validate([
+        //     'borang' => 'required|mimes:pdf|max:1024'
+        // ], [
+        //     'borang.max' => 'Fail yang dimuatnaik tidak melebihi 1MB',
+        //     'borang.mimes' => 'Fail perlu dimuatnaik dalam format PDF',
+        //     'borang.required' => 'Borang perlu dimuatnaik',
+        // ]);
          
 
         $pengguna = User::find(Auth::user()->id_pengguna);
@@ -181,13 +181,14 @@ class UserController extends Controller
             }
 
             #Muat naik borang permohonan
-            $folder = str_slug($program->nama_program, '-');
-            $location = $folder.'/borang_permohonan';
-            $borang = Storage::disk('lampiran')->putFile($location, $request->file('borang'));         
+            // $folder = str_slug($program->nama_program, '-');
+            // $location = $folder.'/borang_permohonan';
+            // $borang = Storage::disk('lampiran')->putFile($location, $request->file('borang'));         
 
             
             $program->pesertaBatal()->detach($pengguna);
-            $pengguna->senaraiProgramKeseluruhan()->attach($program->id_program, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => $status_pengesahan, 'borang_pendaftaran' => $borang]);
+            // $pengguna->senaraiProgramKeseluruhan()->attach($program->id_program, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => $status_pengesahan, 'borang_pendaftaran' => $borang]);
+            $pengguna->senaraiProgramKeseluruhan()->attach($program->id_program, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => $status_pengesahan]);
             Alert::success('Permohonan diterima.');
         } else {
             Alert::error('Permohonan telah dibuat, hanya satu permohonan dibenarkan.');
