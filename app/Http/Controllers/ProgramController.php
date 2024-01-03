@@ -18,12 +18,15 @@ use App\Models\Kehadiran;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Log;
 use PDF;
+use DB;
 use Ramsey\Uuid\Uuid;
 use RealRashid\SweetAlert\Facades\Alert;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 use Notification;
 use App\Notifications\EmailPengesahanTerimaPermohonan;
+
+use function PHPUnit\Framework\isNull;
 
 class ProgramController extends Controller
 {
@@ -340,7 +343,9 @@ class ProgramController extends Controller
         }
 
         $program->senaraiPermohonanPeserta()->updateExistingPivot($idPengguna, ['status_pengesahan' => 1]);
-        $program->increment('jumlah_peserta');
+        $bil_peserta = DB::table('daftar_program')->where('id_program', $idProgram)->where('status_pengesahan', 1)->whereNull('tarikh_batal')->count();
+        // dd($bil_peserta );
+        $program->update(['jumlah_peserta' => $bil_peserta]);
 
         #generate surat tawaran
 
