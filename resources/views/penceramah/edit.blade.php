@@ -45,6 +45,16 @@
             @endif
             </div>
 
+            <div class="form-group  has-feedback {{ $errors->has('nama_bank') ? 'has-error' : '' }} ">
+              <label for="nama_bank">Nama Bank</label>
+                <input type="text" class="form-control" id="nama_bank" placeholder="Contoh : Maybank/Bank Islam/RHB/CIMB " name='nama_bank' value="{{old('nama_bank', $penceramah->nama_bank)}}">
+                @if ($errors->has('nama_bank'))
+                  <span class="help-block">
+                      <strong>{{ ucwords($errors->first('nama_bank')) }}</strong>
+                  </span>
+                @endif
+          </div>
+
             <div class="form-group  has-feedback {{ $errors->has('no_akaun_bank') ? 'has-error' : '' }} ">
               <label for="no_akaun_bank">No Akaun Bank</label>
                 <input type='number' class="form-control" id="no_akaun_bank" placeholder="Masukkan No Akaun Bank " name='no_akaun_bank' value="{{old('no_akaun_bank', $penceramah->no_akaun_bank)}}">
