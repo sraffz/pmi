@@ -61,6 +61,10 @@
             height: 5em !important;
             border-width: .25em !important;
         }
+        td.wrap {
+            /* word-wrap: break-word; */
+            white-space: normal;
+        }
     </style>
 
     <!-- Google Font -->

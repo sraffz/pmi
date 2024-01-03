@@ -137,6 +137,7 @@ Route::PUT('penceramah-program/{id}/kemaskini', [App\Http\Controllers\ProgramCon
 
 //Peserta Program
 Route::GET('program/{id}/maklumat-senarai-peserta', [App\Http\Controllers\ProgramController::class, 'senaraiPeserta'])->name('show.senarai.peserta');
+Route::GET('program/{id}/cetak-senarai-peserta', [App\Http\Controllers\ProgramController::class, 'cetakSenaraiPeserta'])->name('cetak.senarai.peserta');
 Route::GET('program/{id}/permohonan-peserta', [App\Http\Controllers\ProgramController::class, 'senaraiPermohonanPeserta'])->name('senarai.permohonan.peserta');
 Route::GET('program/{idProgram}/pengesahan-permohonan-peserta/{idPengguna}', [App\Http\Controllers\ProgramController::class, 'pengesahanPermohonanPeserta'])->name('pengesahan.permohonan.peserta');
 Route::PUT('program/{id}/kemaskini-senarai-peserta', [App\Http\Controllers\ProgramController::class, 'updateSenaraiPeserta'])->name('update.senarai.peserta');

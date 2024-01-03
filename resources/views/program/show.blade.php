@@ -13,13 +13,13 @@
           
       </div>
       <div class="box-body">
-        <div class="container-fluid table-responsive">
-          <table id="programTable" class="table table-bordered table-striped">
+        <div class="container-fluid  ">
+          <table id="programTable" class="table table-bordered table-striped" width="100%">
             
               <tr>
                 <td>
                   <a href="@if(isset($program->poster_program)) {{ asset('storage/lampiran/'.$program->poster_program) }} @endif">
-                    <img src="@if(isset($program->poster_program)) {{ asset('storage/lampiran/'.$program->poster_program) }} @endif" style="max-height: 200px">
+                    <img src="@if(isset($program->poster_program)) {{ asset('storage/lampiran/'.$program->poster_program) }} @endif"   width="100%">
                   </a>
                   
                 </td>
@@ -27,7 +27,7 @@
               </tr>
               <tr>
                 <td>
-                  <table id="example1" class="table table-bordered table-striped">
+                  <table id="example1" class="table table-bordered table-striped" >
                     <thead>
                       <tr>
                         <th>Bil.</th>
@@ -39,7 +39,7 @@
                           <tr>
                             <td>1</td>
                             <td>Deskripsi Program</td>
-                            <td>{{$program->deskripsi_program}}</td>
+                            <td class="wrap" align="justify">{{$program->deskripsi_program}}</td>
                           </tr>
 
                           <tr>
@@ -80,20 +80,20 @@
 
                           <tr>
                             <td>8</td>
-                            <td>Objektif</td>
+                            <td class="wrap" align="justify">Objektif</td>
                             <td>{{$program->objektif}}</td>
                           </tr>
 
                           <tr>
                             <td>9</td>
                             <td>Impak</td>
-                            <td>{{$program->impak}}</td>
+                            <td class="wrap" align="justify">{{$program->impak}}</td>
                           </tr>
 
                           <tr>
                             <td>10</td>
                             <td>Maklumat Tambahan</td>
-                            <td>{{$program->maklumat_tambahan ?? 'Tiada'}}</td>
+                            <td class="wrap" align="justify">{{$program->maklumat_tambahan ?? 'Tiada'}}</td>
                           </tr>
                       </tbody>
                   </table>

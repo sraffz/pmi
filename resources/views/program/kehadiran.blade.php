@@ -49,6 +49,8 @@
                   <th >Bil</th>
                   <th >No Kad Pengenalan Peserta</th>
                   <th >Nama Peserta</th>
+				  <th>Jawatan & Gred</th>
+                  <th>Jabatan</th>
                   <th >Tarikh Hadir</th>
                   <th >Tindakan</th>
                 </tr>
@@ -56,10 +58,17 @@
        
             <tbody>
                 @foreach ($program->senaraiKehadiran  as $peserta)
+				@php
+				$jabatan = DB::table('jabatan')
+					->where('jabatan_id', $peserta->jabatan)
+					->first();
+			@endphp
                     <tr>
                         <td> {{ $loop->iteration }} </td>
                         <td> {{ $peserta->no_kad_pengenalan }} </td>
                         <td> {{ $peserta->nama_penuh }} </td>
+						<td>{{ $peserta->skim }} ({{ $peserta->gred_kod . '' . $peserta->gred }})</td>
+                                        <td>{{ $jabatan->nama_jabatan }}</td>
                         <td> {{ $peserta->pivot->created_at->format('d/m/Y') }} </td>
                         <td width="10%">
 							{{-- <a href="{{route('kehadiran.edit', ['id' => $peserta->id_pengguna])}}" class="btn btn-primary btn-block">Detail Peserta</a> --}}

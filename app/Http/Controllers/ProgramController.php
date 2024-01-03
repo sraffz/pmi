@@ -268,6 +268,22 @@ class ProgramController extends Controller
         return view('program.senarai-peserta', $data);
     }
 
+    public function cetakSenaraiPeserta($id)
+    {
+        $program = Program::find($id);
+        $senaraiPengguna = User::whereRoleIs('individu')->get();
+
+        $data = [
+            'program' => $program,
+            'senaraiPengguna' => $senaraiPengguna,
+        ];
+
+        // return view('program.cetak.senarai-peserta', $data);
+
+        $pdf = PDF::loadView('program.cetak.senarai-peserta', $data);
+        return $pdf->stream('Senarai Peserta '.$program->nama_program.'.pdf');
+    }
+
     public function updateSenaraiPeserta(Request $request, $id)
     {
         $program = Program::find($id);
