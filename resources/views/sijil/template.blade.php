@@ -89,7 +89,7 @@
                 
             </td>
             <td style="text-align: center; padding-right: 7%; padding-top: 10%;">
-                <span style="font-size: 12px;"><strong>( HAJI MOHD ZAKI BIN YUSOFF)</strong> </span><br>
+                <span style="font-size: 12px;"><strong>( HAJI MOHD ZAKI BIN YUSOFF )</strong> </span><br>
                     <span style="font-size: 11px;">
                         Pengarah <br>
                     Bahagian Pengurusan Sumber Manusia <br>
