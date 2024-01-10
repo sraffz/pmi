@@ -633,10 +633,10 @@ class ProgramController extends Controller
             'qrcode' => $qrcode,
         ];
 
-        $pdf = PDF::loadView('sijil.template', $data);
-
-        return $pdf->stream('Sijil.pdf');
         // return view('sijil.template', $data);
+        
+        $pdf = PDF::loadView('sijil.template', $data);
+        return $pdf->stream('Sijil.pdf');
     }
 
     public function janaQRCodeKehadiran($id)

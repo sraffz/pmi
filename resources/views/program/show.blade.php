@@ -72,11 +72,11 @@
                             <td>{{$program->golongan_sasar}}</td>
                           </tr>
 
-                          <tr>
+                          {{-- <tr>
                             <td>7</td>
                             <td>Yuran</td>
                             <td>RM  @if(is_numeric($program->yuran)) {{ number_format($program->yuran,2)}} @else {{ $program->yuran }} @endif</td>
-                          </tr>
+                          </tr> --}}
 
                           <tr>
                             <td>8</td>

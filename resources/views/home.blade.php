@@ -369,7 +369,8 @@
                                                     <a href="{{ route('mohon.peserta.individu', ['id' => $program->id_program]) }}"
                                                         class="btn btn-primary pengesahan" onclick="return false">Mohon Sertai
                                                         Program</a>
-                                                        
+                                                    @else
+                                                    <button class="btn btn-danger pengesahan" disabled="disabled">Penyertaan Ditutup</button>
                                                     @endif
                                                 <!-- Button trigger modal -->
                                                 {{-- <button type="button" class="btn btn-primary " data-toggle="modal"

@@ -314,8 +314,11 @@
                                                 <ul>
                                                     {{-- <li><i class="fa fa-users"></i> 20 Student </li> --}}
                                                 </ul>
-                                                <a href="{{ route('login') }}"><span
-                                                        class=" mt-auto price">DAFTAR</span></a>
+                                                @if ($program->status_penyertaan == 1)
+                                                <a href="{{ route('login') }}"><span class=" mt-auto price">DAFTAR</span></a>
+                                                @else
+                                                <button type="button" disabled class="btn btn-danger mt-auto price">PENYERTAAN DITUTUP</button>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

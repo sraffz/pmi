@@ -49,11 +49,11 @@
                                     <span class="title">Kumpulan Sasaran:</span>
                                     <span class="info">{{$program->golongan_sasar}}</span>
                                 </li>
-                                <li>
+                                {{-- <li>
                                     <i class="la la-money"></i>
                                     <span class="title">Yuran:</span>
                                     <span class="info">RM  @if(is_numeric($program->yuran)) {{ number_format($program->yuran,2)}} @else {{ $program->yuran }} @endif</span>
-                                </li>
+                                </li> --}}
                                 <li>
                                     <i class="la la-map-marker"></i>
                                     <span class="title">Tempat:</span> <br>
