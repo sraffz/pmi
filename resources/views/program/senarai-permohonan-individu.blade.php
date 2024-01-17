@@ -32,12 +32,14 @@
                             <td> {{ $program->tarikh_mula->format('d.m.Y') }} </td>
                             <td> {{ $program->tempatProgram->nama_tempat }} </td>
                             <td>
-                                @if ($program->daftar_program->status_pengesahan)
-                                    <span class="label bg-green">Diterima</span>
+                                @if ($program->daftar_program->status_pengesahan == 1)
+                                    <span class="label bg-green">Berjaya</span>
                                     @php
                                         $id = Crypt::encryptString($program->id_program);
                                     @endphp
                                     {{-- <a class="btn btn-xs btn-primary" target="blank" href="{{ route('surat.tawaran.individu', ['id' => $id]) }}" role="button">Surat Tawaran</a> --}}
+                                @elseif ($program->daftar_program->status_pengesahan == 2)
+                                    <span class="label bg-red">Tidak Berjaya</span>
                                 @else
                                     <span class="label bg-yellow">Dalam Proses</span>
                                 @endif

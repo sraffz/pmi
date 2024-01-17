@@ -272,7 +272,7 @@
                                                     @if (!$agent->isDesktop()) target="_blank" @endif>Test Live Zoom</a>
                                             @endif
                                         @endrole
-
+                                        
                                         @if ($program->senaraiPermohonanPesertaDiterima()->find(auth()->user()->id_pengguna))
                                             @if (checkTarikhProgram($program))
                                                 {{-- Jika tempat program secara maya papar butang zoom meeting --}}
@@ -351,12 +351,12 @@
                                                 {{-- <a class="btn btn-danger" target="blank"
                                                     href="{{ route('surat.tawaran.individu', ['id' => $id]) }}"
                                                     role="button">Surat Tawaran Penyertaan</a> --}}
-                                                <a href="" class="btn btn-success" onclick="return false">Permohonan
-                                                    Diterima</a>
+                                                <a href="" class="btn btn-success" onclick="return false">Permohonan Diterima</a>
                                             @endif
+                                        @elseif ($program->senaraiPermohonanPesertaTidakDiterima()->find(auth()->user()->id_pengguna))
+                                                <a href="" disabled class="btn btn-danger" onclick="return false">Permohonan Ditolak</a>
                                         @elseif ($program->senaraiPermohonanPeserta()->find(auth()->user()->id_pengguna))
-                                            <a href="" class="btn btn-warning" onclick="return false">Permohonan Dalam
-                                                Proses</a>
+                                            <a href="" class="btn btn-warning" onclick="return false">Permohonan Dalam Proses</a>
                                         @else
                                             @if (!checkLepasTarikhProgram($program))
                                                 @php
@@ -365,13 +365,14 @@
                                                 {{-- <a class="btn btn-danger" target="blank"
                                                     href="{{ route('borang.peserta.individu', ['id' => $id]) }}"
                                                     role="button">Borang Permohonan</a> --}}
-                                                    @if ($program->status_penyertaan == 1)
+                                                @if ($program->status_penyertaan == 1)
                                                     <a href="{{ route('mohon.peserta.individu', ['id' => $program->id_program]) }}"
                                                         class="btn btn-primary pengesahan" onclick="return false">Mohon Sertai
                                                         Program</a>
-                                                    @else
-                                                    <button class="btn btn-danger pengesahan" disabled="disabled">Penyertaan Ditutup</button>
-                                                    @endif
+                                                @else
+                                                    <button class="btn btn-danger pengesahan" disabled="disabled">Penyertaan
+                                                        Ditutup</button>
+                                                @endif
                                                 <!-- Button trigger modal -->
                                                 {{-- <button type="button" class="btn btn-primary " data-toggle="modal"
                                                     data-target="#sertaiKursus">
@@ -453,7 +454,7 @@
             $(document).ready(function() {
                 $('.pengesahan').click(function() {
                     hapus = Swal.fire({
-                        title: 'Pengesahan Penyertaan!',
+                        title: 'Pengesahan Permohonan!',
                         text: 'Klik Teruskan untuk mohon.',
                         type: 'info',
                         confirmButtonText: 'Teruskan',

@@ -138,6 +138,11 @@ class Program extends Model
     {
         return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 1)->withTimestamps(); 
     }
+    
+    public function senaraiPermohonanPesertaTidakDiterima()
+    {
+        return $this->belongsToMany(User::class, 'daftar_program', 'id_program', 'id_pengguna')->as('senarai_peserta')->withPivot('tarikh_daftar', 'tarikh_batal','status_pengesahan','status_kajiselidik','status_kehadiran','url_sijil', 'borang_pendaftaran')->wherePivot('tarikh_batal', null)->wherePivot('status_pengesahan', 2)->withTimestamps(); 
+    }
 
     public function senaraiPesertaTelahJawabKajiSelidik()
     {

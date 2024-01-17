@@ -40,12 +40,15 @@
                             <td>{{ $peserta->no_kad_pengenalan }}</td>
                             <td>{{ $peserta->skim }} ({{ $peserta->gred_kod . '' . $peserta->gred }})</td>
                             <td>{{ $jabatan->nama_jabatan }}</td>
-                            <td width="15%">
+                            <td width="15%" class="text-center">
                                 {{-- <a class='btn btn-info' target="blank"
                                     href='{{ route('borang.peserta.individu.muatturun', ['idProgram' => $program->id_program, 'idPengguna' => $peserta->id_pengguna]) }}'>Borang</a> --}}
-                                <a class='btn btn-success'
-                                    href='{{ route('pengesahan.permohonan.peserta', ['idProgram' => $program->id_program, 'idPengguna' => $peserta->id_pengguna]) }}'>Terima
-                                    Permohonan</a>
+                                <a class='btn btn-success btn-sm' href='{{ route('pengesahan.permohonan.peserta', ['idProgram' => $program->id_program, 'idPengguna' => $peserta->id_pengguna]) }}'>
+                                    <i class="far fa-check-circle"></i>
+                                    </a>
+                                <a class='btn btn-danger btn-sm' href='{{ route('tolak.permohonan.peserta', ['idProgram' => $program->id_program, 'idPengguna' => $peserta->id_pengguna]) }}'>
+                                    <i class="far fa-times-circle"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

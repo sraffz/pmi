@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class EmailPengesahanTerimaPermohonan extends Notification
+class EmailTolakPermohonan extends Notification
 {
     use Queueable;
 
@@ -34,16 +34,10 @@ class EmailPengesahanTerimaPermohonan extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        if ($this->program->tarikh_mula == $this->program->tarikh_akhir) {
-            $tarikh = \Carbon\Carbon::parse($this->program->tarikh_mula)->format('d-m-Y');
-        } else {
-            $tarikh =  \Carbon\Carbon::parse($this->program->tarikh_mula)->format('d-m-Y').' hingga '.\Carbon\Carbon::parse($this->program->tarikh_akhir)->format('d-m-Y');
-        }
-        
         return (new MailMessage)
                     ->subject('E-PMI : PENGESAHAN PENYERTAAN PROGRAM')
                     ->greeting('Assalamualaikum / Selamat Sejahtera')
-                    ->line('Adalah dimaklumkan bahawa permohonan anda untuk menyertai program '.$this->program->nama_program.' yang akan diadakan pada '.$tarikh.' telah berjaya.')
+                    ->line('Adalah dimaklumkan bahawa permohonan penyertaan program '.$this->program->nama_program.' anda tidak berjaya.')
                     ->action('Lihat Permohonan', url('/program/senarai-permohonan-individu'));
     }
 

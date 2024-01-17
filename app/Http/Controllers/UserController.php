@@ -172,13 +172,14 @@ class UserController extends Controller
         }
 
         if (!$program->senaraiPermohonanPeserta()->find($pengguna->id_pengguna)) {
-            $status_pengesahan = (checkTarikhProgram($program)) ? 1 : 0;
-            if (checkTarikhProgram($program)) {
-                $status_pengesahan =  1;
-                $program->increment('jumlah_peserta');
-            } else {
-                $status_pengesahan =  0;
-            }
+            // $status_pengesahan = (checkTarikhProgram($program)) ? 1 : 0;
+            // if (checkTarikhProgram($program)) {
+            //     $status_pengesahan =  1;
+            //     $program->increment('jumlah_peserta');
+            // } else {
+            //     $status_pengesahan =  0;
+            // }
+            $status_pengesahan =  0;
 
             #Muat naik borang permohonan
             // $folder = str_slug($program->nama_program, '-');
@@ -189,7 +190,7 @@ class UserController extends Controller
             $program->pesertaBatal()->detach($pengguna);
             // $pengguna->senaraiProgramKeseluruhan()->attach($program->id_program, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => $status_pengesahan, 'borang_pendaftaran' => $borang]);
             $pengguna->senaraiProgramKeseluruhan()->attach($program->id_program, ['tarikh_daftar' => Carbon::now(), 'status_pengesahan' => $status_pengesahan]);
-            Alert::success('Permohonan diterima.');
+            Alert::success('Permohonan dihantar dan akan diproses.');
         } else {
             Alert::error('Permohonan telah dibuat, hanya satu permohonan dibenarkan.');
         }

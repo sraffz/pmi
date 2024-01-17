@@ -25,6 +25,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 use Notification;
 use App\Notifications\EmailPengesahanTerimaPermohonan;
+use App\Notifications\EmailTolakPermohonan;
 
 use function PHPUnit\Framework\isNull;
 
@@ -344,13 +345,38 @@ class ProgramController extends Controller
 
         $program->senaraiPermohonanPeserta()->updateExistingPivot($idPengguna, ['status_pengesahan' => 1]);
         $bil_peserta = DB::table('daftar_program')->where('id_program', $idProgram)->where('status_pengesahan', 1)->whereNull('tarikh_batal')->count();
-        // dd($bil_peserta );
         $program->update(['jumlah_peserta' => $bil_peserta]);
 
         #generate surat tawaran
 
 
         Alert::success('Permohonan diterima');
+
+        return redirect()->back();
+    }
+    
+    public function tolakPermohonanPeserta($idProgram, $idPengguna)
+    {
+        $program = Program::find($idProgram);
+        $pengguna = User::where('id_pengguna', $idPengguna)->first();
+        // dd($pengguna->email);
+        Notification::send($pengguna, new EmailTolakPermohonan($program));
+        // dd($program);
+
+        // if ($program->kuota_peserta == $program->jumlah_peserta) {
+        //     Alert::error('Kuota peserta program telah penuh');
+        //     return redirect()->back();
+        // }
+
+        $program->senaraiPermohonanPeserta()->updateExistingPivot($idPengguna, ['status_pengesahan' => 2]);
+        // $bil_peserta = DB::table('daftar_program')->where('id_program', $idProgram)->where('status_pengesahan', 1)->whereNull('tarikh_batal')->count();
+        // dd($bil_peserta );
+        // $program->update(['jumlah_peserta' => $bil_peserta]);
+
+        #generate surat tawaran
+
+
+        Alert::success('Permohonan ditolak');
 
         return redirect()->back();
     }
